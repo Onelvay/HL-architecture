@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/Onelvay/HL-architecture/config"
 	"github.com/Onelvay/HL-architecture/internal/api/rest"
+	"github.com/Onelvay/HL-architecture/pkg/database"
 	"go.uber.org/zap"
 	"log"
 	"os"
@@ -14,10 +15,11 @@ import (
 )
 
 func Run() {
+	database.New()
 	if err := config.ParseYaml(); err != nil {
-		log.Fatalf("error initializing configs: %s", err.Error())
-		return
+		log.Fatalf(err.Error())
 	}
+
 	logger, err := zap.NewProduction()
 	if err != nil {
 		log.Fatalf("can't initialize zap logger: %v", err)
@@ -47,7 +49,6 @@ func Run() {
 
 	signal.Notify(quit, os.Interrupt, syscall.SIGTERM)
 	<-quit
-	fmt.Println("Gracefully shutting down...")
 	fmt.Println("Server was successful shutdown.")
 
 }
