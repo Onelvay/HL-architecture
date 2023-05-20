@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/Onelvay/HL-architecture/config"
 	"github.com/Onelvay/HL-architecture/internal/api/rest"
-	"github.com/Onelvay/HL-architecture/pkg/database"
+	"github.com/Onelvay/HL-architecture/internal/repository"
 	"go.uber.org/zap"
 	"log"
 	"os"
@@ -15,7 +15,6 @@ import (
 )
 
 func Run() {
-	database.New()
 	if err := config.ParseYaml(); err != nil {
 		log.Fatalf(err.Error())
 	}
@@ -32,6 +31,14 @@ func Run() {
 	if err != nil {
 		sugar.Errorf("failed to init config:  %s", err)
 	}
+
+	repo, db, err := repository.New(repository.PostgresRepository())
+	defer db.Close()
+
+	if err != nil {
+		sugar.Errorf("failed to init repository %s", err)
+	}
+
 	server := rest.NewServer(cfg)
 	go func() {
 		if err = server.Run(); err != nil {

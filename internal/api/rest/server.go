@@ -18,7 +18,8 @@ func NewServer(cfg config.Config) *Server {
 	router.Use(gin.Recovery())
 	router.MaxMultipartMemory = 16 << 20
 
-	productRoutes(router)
+	p := NewProductHandler()
+	productRoutes(router, p)
 
 	return &Server{
 		&http.Server{

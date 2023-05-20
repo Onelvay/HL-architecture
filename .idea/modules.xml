@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/HL-Architecture.iml" filepath="$PROJECT_DIR$/.idea/HL-Architecture.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../hl-2ass/.idea/hl-2ass.iml" filepath="$PROJECT_DIR$/../hl-2ass/.idea/hl-2ass.iml" />
     </modules>
   </component>
 </project>
