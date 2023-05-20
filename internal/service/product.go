@@ -1,14 +1,13 @@
 package service
 
-import "github.com/Onelvay/HL-architecture/internal/repository/postgres"
-
-type ProductService interface {
-}
+import (
+	"github.com/Onelvay/HL-architecture/internal/repository"
+)
 
 type productService struct {
-	repo postgres.ProductRepository
+	repo repository.ProductRepository
 }
 
-func NewProductService(repo postgres.ProductRepository) ProductService {
+func NewProductService(repo repository.ProductRepository) ProductService {
 	return &productService{repo}
 }

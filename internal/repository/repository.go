@@ -7,7 +7,7 @@ import (
 )
 
 type Repository struct {
-	Product *postgres.ProductRepository
+	Product ProductRepository
 }
 
 type Configuration func(r *Repository) (db *sqlx.DB, err error)

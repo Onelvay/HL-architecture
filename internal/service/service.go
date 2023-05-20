@@ -1,9 +1,9 @@
 package service
 
-import "github.com/Onelvay/HL-architecture/internal/repository/postgres"
+import "github.com/Onelvay/HL-architecture/internal/repository"
 
 type Dependencies struct {
-	ProductRepo *postgres.ProductRepository
+	ProductRepo repository.ProductRepository
 }
 
 type Service struct {
@@ -12,6 +12,6 @@ type Service struct {
 
 func New(d Dependencies) Service {
 	return Service{
-		Product: d.ProductRepo,
+		Product: NewProductService(d.ProductRepo),
 	}
 }

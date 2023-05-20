@@ -36,15 +36,16 @@ func Run() {
 	repo, db, err := repository.New(repository.PostgresRepository())
 	defer db.Close()
 
-	depencies := service.Dependencies{
+	d := service.Dependencies{
 		ProductRepo: repo.Product,
 	}
+	s := service.New(d)
 
 	if err != nil {
 		sugar.Errorf("failed to init repository %s", err)
 	}
 
-	server := rest.NewServer(cfg, depencies)
+	server := rest.NewServer(cfg, s)
 	go func() {
 		if err = server.Run(); err != nil {
 			sugar.Error(err)

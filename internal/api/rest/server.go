@@ -12,14 +12,14 @@ type Server struct {
 	*http.Server
 }
 
-func NewServer(cfg config.Config, dep service.Dependencies) *Server {
+func NewServer(cfg config.Config, s service.Service) *Server {
 	router := gin.New()
 
 	router.Use(gin.Logger())
 	router.Use(gin.Recovery())
 	router.MaxMultipartMemory = 16 << 20
 
-	p := NewProductHandler(dep.ProductRepo)
+	p := NewProductHandler(s.Product)
 	productRoutes(router, p)
 
 	return &Server{
