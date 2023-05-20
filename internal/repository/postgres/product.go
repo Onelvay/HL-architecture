@@ -17,6 +17,7 @@ func NewProductRepository(db *sqlx.DB) *ProductRepository {
 func (p *ProductRepository) GetOne(ctx context.Context, id string) (data entity.Product, err error) {
 	query := `SELECT id,name,price FROM products WHERE id=$1`
 	args := []any{id}
+
 	err = p.db.GetContext(ctx, &data, query, args...)
 	return
 }

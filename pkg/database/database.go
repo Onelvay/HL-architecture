@@ -15,5 +15,10 @@ func New() (*sqlx.DB, error) {
 	if err != nil {
 		return db, err
 	}
+
+	if err := migrates(); err != nil {
+		panic(err)
+	}
+
 	return db, nil
 }

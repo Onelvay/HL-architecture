@@ -3,6 +3,7 @@ package rest
 import (
 	"github.com/Onelvay/HL-architecture/internal/service"
 	"github.com/gin-gonic/gin"
+	"net/http"
 )
 
 type ProductHandler struct {
@@ -27,5 +28,16 @@ func (h *ProductHandler) getAll(ctx *gin.Context) {
 
 }
 func (h *ProductHandler) getById(ctx *gin.Context) {
+	id := ctx.Param("id")
+	res, err := h.productService.GetRowById(ctx, id)
 
+	if err != nil {
+		if err.Error() == "sql: no rows in result set" {
+			ctx.AbortWithError(http.StatusNotFound, err)
+		} else {
+			ctx.AbortWithError(http.StatusInternalServerError, err)
+		}
+		return
+	}
+	ctx.JSON(http.StatusOK, res)
 }

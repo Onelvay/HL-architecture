@@ -1,2 +1,0 @@
-{"level":"warn","ts":1684516010.1872957,"caller":"app/app.go:84","msg":"Logger sync fail","error":"sync /dev/stdout: The handle is invalid."}
-{"level":"error","ts":1684516010.203367,"caller":"app/app.go:19","msg":"12312312","stacktrace":"github.com/Onelvay/HL-architecture/app.Run\n\tC:/summer/HL-Architecture/app/app.go:19\nmain.main\n\tC:/summer/HL-Architecture/main.go:6\nruntime.main\n\tC:/Program Files/Go/src/runtime/proc.go:250"}

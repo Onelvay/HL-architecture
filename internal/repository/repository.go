@@ -27,6 +27,7 @@ func PostgresRepository() Configuration {
 func New(cfg Configuration) (*Repository, *sqlx.DB, error) {
 	repo := &Repository{}
 	db, err := cfg(repo)
+
 	if err != nil {
 		return nil, nil, err
 	}
