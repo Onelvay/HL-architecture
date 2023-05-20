@@ -3,6 +3,7 @@ package rest
 import (
 	"context"
 	"github.com/Onelvay/HL-architecture/config"
+	"github.com/Onelvay/HL-architecture/internal/service"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -11,14 +12,14 @@ type Server struct {
 	*http.Server
 }
 
-func NewServer(cfg config.Config) *Server {
+func NewServer(cfg config.Config, dep service.Dependencies) *Server {
 	router := gin.New()
 
 	router.Use(gin.Logger())
 	router.Use(gin.Recovery())
 	router.MaxMultipartMemory = 16 << 20
 
-	p := NewProductHandler()
+	p := NewProductHandler(dep.ProductRepo)
 	productRoutes(router, p)
 
 	return &Server{

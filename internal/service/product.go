@@ -9,6 +9,6 @@ type productService struct {
 	repo postgres.ProductRepository
 }
 
-func NewProductService(repo postgres.ProductRepository) *productService {
+func NewProductService(repo postgres.ProductRepository) ProductService {
 	return &productService{repo}
 }

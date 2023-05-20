@@ -6,6 +6,7 @@ import (
 	"github.com/Onelvay/HL-architecture/config"
 	"github.com/Onelvay/HL-architecture/internal/api/rest"
 	"github.com/Onelvay/HL-architecture/internal/repository"
+	"github.com/Onelvay/HL-architecture/internal/service"
 	"go.uber.org/zap"
 	"log"
 	"os"
@@ -35,11 +36,15 @@ func Run() {
 	repo, db, err := repository.New(repository.PostgresRepository())
 	defer db.Close()
 
+	depencies := service.Dependencies{
+		ProductRepo: repo.Product,
+	}
+
 	if err != nil {
 		sugar.Errorf("failed to init repository %s", err)
 	}
 
-	server := rest.NewServer(cfg)
+	server := rest.NewServer(cfg, depencies)
 	go func() {
 		if err = server.Run(); err != nil {
 			sugar.Error(err)
