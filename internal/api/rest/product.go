@@ -27,6 +27,7 @@ func productRoutes(router *gin.Engine, h *ProductHandler) {
 func (h *ProductHandler) getAll(ctx *gin.Context) {
 
 }
+
 func (h *ProductHandler) getById(ctx *gin.Context) {
 	id := ctx.Param("id")
 	res, err := h.productService.GetRowById(ctx, id)

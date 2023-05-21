@@ -36,6 +36,9 @@ func NewServer(cfg config.Config, s service.Service) *Server {
 	p := NewProductHandler(s.Product)
 	productRoutes(router, p)
 
+	a := NewAuthorizationHandler()
+	authRoutes(router, a)
+
 	return &Server{
 		&http.Server{
 			Addr:           ":" + cfg.Http.Port,
@@ -47,9 +50,11 @@ func NewServer(cfg config.Config, s service.Service) *Server {
 	}
 
 }
+
 func (s Server) Run() (err error) {
 	return s.ListenAndServe()
 }
+
 func (s Server) Stop(ctx context.Context) (err error) {
 	return s.Shutdown(ctx)
 }
