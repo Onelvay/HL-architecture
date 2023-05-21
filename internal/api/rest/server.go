@@ -36,7 +36,7 @@ func NewServer(cfg config.Config, s service.Service) *Server {
 	p := NewProductHandler(s.Product)
 	productRoutes(router, p)
 
-	a := NewAuthorizationHandler()
+	a := NewAuthorizationHandler(s.Auth)
 	authRoutes(router, a)
 
 	return &Server{

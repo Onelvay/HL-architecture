@@ -7,7 +7,7 @@ import (
 )
 
 func migrates() error {
-	url := "postgres://postgres:Adg12332,@localhost:5432/products?sslmode=disable"
+	url := "postgres://postgres:Adg12332,@localhost:5432/aray?sslmode=disable"
 	m, err := migrate.New("file://migrations", url)
 	if err != nil {
 		return err

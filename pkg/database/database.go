@@ -6,7 +6,7 @@ import (
 )
 
 func New() (*sqlx.DB, error) {
-	db, err := sqlx.Connect("postgres", "host=localhost user=postgres dbname=products password=Adg12332, sslmode=disable")
+	db, err := sqlx.Connect("postgres", "host=localhost user=postgres dbname=aray password=Adg12332, sslmode=disable")
 	if err != nil {
 		return db, err
 	}

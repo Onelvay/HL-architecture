@@ -1,9 +1,9 @@
-CREATE TABLE IF NOT EXISTS abay
+CREATE TABLE IF NOT EXISTS users
   (
      created_at   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
      updated_at   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
      id           SERIAL PRIMARY KEY,
-     full_name    VARCHAR NOT NULL,
-     pseudonym    VARCHAR NOT NULL,
-     specialty    VARCHAR NOT NULL
+     name varchar,
+     password varchar,
+     email varchar
   );

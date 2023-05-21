@@ -10,8 +10,8 @@ type Authorization struct {
 	authService service.AuthService
 }
 
-func NewAuthorizationHandler() *Authorization {
-	return &Authorization{}
+func NewAuthorizationHandler(authService service.AuthService) *Authorization {
+	return &Authorization{authService: authService}
 }
 
 func authRoutes(router *gin.Engine, a *Authorization) {
@@ -32,12 +32,22 @@ func (a *Authorization) SignUp(c *gin.Context) {
 	}
 	res, err := a.authService.SignUp(c, req)
 	if err != nil {
-		c.JSON(500, gin.H{"error": err})
+		c.JSON(500, gin.H{"error": err.Error()})
 		return
 	}
 	c.JSON(200, res)
 }
 
-func (a *Authorization) SignIn(ctx *gin.Context) {
-
+func (a *Authorization) SignIn(c *gin.Context) {
+	var req dto.SignInRequest
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
+	res, err := a.authService.SignIn(c, req)
+	if err != nil {
+		c.JSON(500, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(200, res)
 }
