@@ -5,8 +5,8 @@ import (
 	"github.com/Onelvay/HL-architecture/internal/dto"
 )
 
-type ProductService interface {
-	GetRowById(ctx context.Context, id string) (res dto.ProductResponse, err error)
+type CourseService interface {
+	GetRowById(ctx context.Context, id string) (res dto.CourseResponse, err error)
 }
 
 type AuthService interface {

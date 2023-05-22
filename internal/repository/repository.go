@@ -7,8 +7,8 @@ import (
 )
 
 type Repository struct {
-	Product ProductRepository
-	Auth    AuthRepository
+	Course CourseRepository
+	Auth   AuthRepository
 }
 
 type Configuration func(r *Repository) (db *sqlx.DB, err error)
@@ -20,7 +20,7 @@ func PostgresRepository() Configuration {
 			return
 		}
 
-		r.Product = postgres.NewProductRepository(db)
+		r.Course = postgres.NewCourseRepository(db)
 		r.Auth = postgres.NewAuthRepository(db)
 		return
 	}

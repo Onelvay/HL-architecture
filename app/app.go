@@ -37,8 +37,8 @@ func Run() {
 	defer db.Close()
 
 	d := service.Dependencies{
-		ProductRepo: repo.Product,
-		AuthRepo:    repo.Auth,
+		CourseRepo: repo.Course,
+		AuthRepo:   repo.Auth,
 	}
 	s := service.New(d)
 

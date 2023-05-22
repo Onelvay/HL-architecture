@@ -6,32 +6,34 @@ import (
 	"net/http"
 )
 
-type ProductHandler struct {
-	productService service.ProductService
+type CourseHandler struct {
+	courseService service.CourseService
 }
 
-func NewProductHandler(productService service.ProductService) *ProductHandler {
-	return &ProductHandler{productService: productService}
+func NewCourseHandler(productService service.CourseService) *CourseHandler {
+	return &CourseHandler{
+		courseService: productService,
+	}
 }
 
-func productRoutes(router *gin.Engine, h *ProductHandler) {
+func productRoutes(router *gin.Engine, h *CourseHandler) {
 	group := router.Group("/products")
 	group.Use(Middleware)
+
 	{
 		group.GET("", h.getAll)
 
 		group.GET("/:id", h.getById)
 	}
+}
+
+func (h *CourseHandler) getAll(ctx *gin.Context) {
 
 }
 
-func (h *ProductHandler) getAll(ctx *gin.Context) {
-
-}
-
-func (h *ProductHandler) getById(ctx *gin.Context) {
+func (h *CourseHandler) getById(ctx *gin.Context) {
 	id := ctx.Param("id")
-	res, err := h.productService.GetRowById(ctx, id)
+	res, err := h.courseService.GetRowById(ctx, id)
 
 	if err != nil {
 		if err.Error() == "sql: no rows in result set" {

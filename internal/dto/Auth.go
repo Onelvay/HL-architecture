@@ -17,5 +17,4 @@ type SignInRequest struct {
 
 type SignInResponse struct {
 	AccessToken string `json:"accessToken"`
-	//refresh_token
 }

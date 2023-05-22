@@ -31,7 +31,7 @@ func NewServer(cfg config.Config, s service.Service) *Server {
 	//	)
 	//}))
 
-	p := NewProductHandler(s.Product)
+	p := NewCourseHandler(s.Course)
 	productRoutes(router, p)
 
 	a := NewAuthorizationHandler(s.Auth)

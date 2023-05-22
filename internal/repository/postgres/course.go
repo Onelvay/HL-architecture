@@ -6,15 +6,15 @@ import (
 	"github.com/jmoiron/sqlx"
 )
 
-type ProductRepository struct {
+type CourseRepository struct {
 	db *sqlx.DB
 }
 
-func NewProductRepository(db *sqlx.DB) *ProductRepository {
-	return &ProductRepository{db: db}
+func NewCourseRepository(db *sqlx.DB) *CourseRepository {
+	return &CourseRepository{db: db}
 }
 
-func (p *ProductRepository) GetOne(ctx context.Context, id string) (data entity.Product, err error) {
+func (p *CourseRepository) GetOne(ctx context.Context, id string) (data entity.Course, err error) {
 	query := `SELECT id,name,price FROM products WHERE id=$1`
 	args := []any{id}
 

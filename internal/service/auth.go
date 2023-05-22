@@ -19,7 +19,9 @@ const (
 )
 
 func NewAuthService(repo repository.AuthRepository) AuthService {
-	return &authService{repo: repo}
+	return &authService{
+		repo: repo,
+	}
 }
 
 func (a *authService) SignIn(ctx context.Context, req dto.SignInRequest) (res dto.SignInResponse, err error) {
