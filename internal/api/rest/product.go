@@ -16,6 +16,7 @@ func NewProductHandler(productService service.ProductService) *ProductHandler {
 
 func productRoutes(router *gin.Engine, h *ProductHandler) {
 	group := router.Group("/products")
+	group.Use(Middleware)
 	{
 		group.GET("", h.getAll)
 
