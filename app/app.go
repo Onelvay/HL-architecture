@@ -4,9 +4,9 @@ import (
 	"flag"
 	"fmt"
 	"github.com/Onelvay/HL-architecture/config"
-	"github.com/Onelvay/HL-architecture/internal/api/rest"
 	"github.com/Onelvay/HL-architecture/internal/repository"
 	"github.com/Onelvay/HL-architecture/internal/service"
+	"github.com/Onelvay/HL-architecture/internal/transport/http"
 	"go.uber.org/zap"
 	"log"
 	"os"
@@ -46,7 +46,7 @@ func Run() {
 		sugar.Errorf("failed to init repository %s", err)
 	}
 
-	server := rest.NewServer(cfg, s)
+	server := http.NewServer(cfg, s)
 	go func() {
 		if err = server.Run(); err != nil {
 			sugar.Error(err)

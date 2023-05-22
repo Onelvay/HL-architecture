@@ -18,9 +18,8 @@ type CourseResponse struct {
 
 func ParseFromCourse(data entity.Course) (res CourseResponse) {
 	res = CourseResponse{
-		ID:    data.ID,
-		Name:  data.Name,
-		Price: data.Price,
+		ID:   data.ID,
+		Name: data.Name,
 	}
 	return
 }

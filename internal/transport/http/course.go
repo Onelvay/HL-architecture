@@ -1,4 +1,4 @@
-package rest
+package http
 
 import (
 	"github.com/Onelvay/HL-architecture/internal/service"
@@ -10,13 +10,13 @@ type CourseHandler struct {
 	courseService service.CourseService
 }
 
-func NewCourseHandler(productService service.CourseService) *CourseHandler {
+func newCourseHandler(productService service.CourseService) *CourseHandler {
 	return &CourseHandler{
 		courseService: productService,
 	}
 }
 
-func productRoutes(router *gin.Engine, h *CourseHandler) {
+func courseRoutes(router *gin.Engine, h *CourseHandler) {
 	group := router.Group("/products")
 	group.Use(Middleware)
 

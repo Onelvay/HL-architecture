@@ -1,4 +1,4 @@
-package rest
+package http
 
 import (
 	"context"
@@ -31,11 +31,14 @@ func NewServer(cfg config.Config, s service.Service) *Server {
 	//	)
 	//}))
 
-	p := NewCourseHandler(s.Course)
-	productRoutes(router, p)
+	c := newCourseHandler(s.Course)
+	courseRoutes(router, c)
 
-	a := NewAuthorizationHandler(s.Auth)
+	a := newAuthorizationHandler(s.Auth)
 	authRoutes(router, a)
+
+	o := newOrderHandler()
+	orderRoutes(router, o)
 
 	return &Server{
 		&http.Server{

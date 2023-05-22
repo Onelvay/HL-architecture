@@ -1,4 +1,4 @@
-package rest
+package http
 
 import (
 	"github.com/Onelvay/HL-architecture/internal/dto"
@@ -6,15 +6,15 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type Authorization struct {
+type authorization struct {
 	authService service.AuthService
 }
 
-func NewAuthorizationHandler(authService service.AuthService) *Authorization {
-	return &Authorization{authService: authService}
+func newAuthorizationHandler(authService service.AuthService) *authorization {
+	return &authorization{authService: authService}
 }
 
-func authRoutes(router *gin.Engine, a *Authorization) {
+func authRoutes(router *gin.Engine, a *authorization) {
 	group := router.Group("/auth")
 	{
 		group.GET("/sign-in", a.SignIn)
@@ -23,7 +23,7 @@ func authRoutes(router *gin.Engine, a *Authorization) {
 
 }
 
-func (a *Authorization) SignUp(c *gin.Context) {
+func (a *authorization) SignUp(c *gin.Context) {
 	var req dto.SignUpRequest
 
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -38,7 +38,7 @@ func (a *Authorization) SignUp(c *gin.Context) {
 	c.JSON(200, res)
 }
 
-func (a *Authorization) SignIn(c *gin.Context) {
+func (a *authorization) SignIn(c *gin.Context) {
 	var req dto.SignInRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(400, gin.H{"error": err.Error()})
