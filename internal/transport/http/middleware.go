@@ -2,6 +2,7 @@ package http
 
 import (
 	"errors"
+	"fmt"
 	"github.com/Onelvay/HL-architecture/pkg/parser/token"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -28,8 +29,9 @@ func Middleware(c *gin.Context) {
 	}
 
 	var key []byte
-	_, err := token.Parse(headerParts[1], key)
-
+	username, err := token.Parse(headerParts[1], key)
+	fmt.Println(username)
+	c.Set("x-testing-abay", username)
 	if err == errors.New("invalid auth token") {
 		c.AbortWithStatus(http.StatusUnauthorized)
 		return

@@ -39,6 +39,7 @@ func Run() {
 	d := service.Dependencies{
 		CourseRepo: repo.Course,
 		AuthRepo:   repo.Auth,
+		OrderRepo:  repo.Order,
 	}
 	s := service.New(d)
 

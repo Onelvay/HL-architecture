@@ -17,13 +17,13 @@ func newAuthorizationHandler(authService service.AuthService) *authorization {
 func authRoutes(router *gin.Engine, a *authorization) {
 	group := router.Group("/auth")
 	{
-		group.GET("/sign-in", a.SignIn)
-		group.POST("/sign-up", a.SignUp)
+		group.GET("/sign-in", a.signIn)
+		group.POST("/sign-up", a.signUp)
 	}
 
 }
 
-func (a *authorization) SignUp(c *gin.Context) {
+func (a *authorization) signUp(c *gin.Context) {
 	var req dto.SignUpRequest
 
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -38,7 +38,7 @@ func (a *authorization) SignUp(c *gin.Context) {
 	c.JSON(200, res)
 }
 
-func (a *authorization) SignIn(c *gin.Context) {
+func (a *authorization) signIn(c *gin.Context) {
 	var req dto.SignInRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(400, gin.H{"error": err.Error()})

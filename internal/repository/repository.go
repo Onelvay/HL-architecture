@@ -9,6 +9,7 @@ import (
 type Repository struct {
 	Course CourseRepository
 	Auth   AuthRepository
+	Order  OrderRepository
 }
 
 type Configuration func(r *Repository) (db *sqlx.DB, err error)
@@ -22,6 +23,7 @@ func PostgresRepository() Configuration {
 
 		r.Course = postgres.NewCourseRepository(db)
 		r.Auth = postgres.NewAuthRepository(db)
+		r.Order = postgres.NewOrderRepository(db)
 		return
 	}
 }

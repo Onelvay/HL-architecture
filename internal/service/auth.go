@@ -7,6 +7,7 @@ import (
 	"github.com/Onelvay/HL-architecture/internal/repository"
 	"github.com/Onelvay/HL-architecture/pkg/hasher"
 	"github.com/dgrijalva/jwt-go/v4"
+	"github.com/google/uuid"
 	"time"
 )
 
@@ -18,7 +19,7 @@ const (
 	expireDuration = 15 * time.Minute
 )
 
-func NewAuthService(repo repository.AuthRepository) AuthService {
+func newAuthService(repo repository.AuthRepository) AuthService {
 	return &authService{
 		repo: repo,
 	}
@@ -36,13 +37,14 @@ func (a *authService) SignIn(ctx context.Context, req dto.SignInRequest) (res dt
 	if err != nil {
 		return
 	}
-	res.AccessToken, err = generateToken(user.Name)
+	res.AccessToken, err = generateToken(user.ID)
 
 	return
 }
 
 func (a *authService) SignUp(ctx context.Context, req dto.SignUpRequest) (res dto.SignUpResponse, err error) {
 	user := entity.User{
+		ID:       uuid.New().String(),
 		Name:     req.Name,
 		Email:    req.Email,
 		Password: req.Password,
@@ -55,17 +57,17 @@ func (a *authService) SignUp(ctx context.Context, req dto.SignUpRequest) (res dt
 		return res, err
 	}
 
-	res.AccessToken, err = generateToken(user.Name)
+	res.AccessToken, err = generateToken(user.ID)
 	return
 }
 
-func generateToken(username string) (accessToken string, err error) {
+func generateToken(userId string) (accessToken string, err error) {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, &dto.Claims{
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: jwt.At(time.Now().Add(expireDuration)),
 			IssuedAt:  jwt.At(time.Now()),
 		},
-		Username: username,
+		UserId: userId,
 	})
 
 	var key []byte

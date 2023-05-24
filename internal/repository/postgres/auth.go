@@ -16,7 +16,7 @@ func NewAuthRepository(db *sqlx.DB) *AuthRepository {
 
 func (a *AuthRepository) SignIn(ctx context.Context, req entity.User) (user entity.User, err error) {
 	query := `
-		SELECT name,email,password FROM users WHERE email=$1 and password=$2`
+		SELECT id,name,email,password FROM users WHERE email=$1 and password=$2`
 
 	args := []any{req.Email, req.Password}
 
@@ -26,9 +26,10 @@ func (a *AuthRepository) SignIn(ctx context.Context, req entity.User) (user enti
 	return
 }
 func (a *AuthRepository) SignUp(ctx context.Context, req entity.User) (err error) {
-	query := "INSERT INTO users (name, email,password) VALUES (:name, :email,:password)"
+	query := "INSERT INTO users (id,name, email,password) VALUES (:id, :name, :email,:password)"
 
 	_, err = a.db.NamedExec(query, map[string]interface{}{
+		"id":       req.ID,
 		"name":     req.Name,
 		"email":    req.Email,
 		"password": req.Password,

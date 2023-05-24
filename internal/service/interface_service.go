@@ -13,3 +13,7 @@ type AuthService interface {
 	SignUp(ctx context.Context, req dto.SignUpRequest) (res dto.SignUpResponse, err error)
 	SignIn(ctx context.Context, req dto.SignInRequest) (res dto.SignInResponse, err error)
 }
+
+type OrderService interface {
+	Create(ctx context.Context, req dto.OrderRequest) (res dto.OrderResponse)
+}

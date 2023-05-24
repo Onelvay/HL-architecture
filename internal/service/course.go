@@ -10,7 +10,7 @@ type courseService struct {
 	repo repository.CourseRepository
 }
 
-func NewCourseService(repo repository.CourseRepository) CourseService {
+func newCourseService(repo repository.CourseRepository) CourseService {
 	return &courseService{repo}
 }
 
