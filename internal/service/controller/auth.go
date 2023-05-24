@@ -1,4 +1,4 @@
-package service
+package controller
 
 import (
 	"context"
@@ -11,7 +11,7 @@ import (
 	"time"
 )
 
-type authService struct {
+type AuthService struct {
 	repo repository.AuthRepository
 }
 
@@ -19,13 +19,13 @@ const (
 	expireDuration = 15 * time.Minute
 )
 
-func newAuthService(repo repository.AuthRepository) AuthService {
-	return &authService{
+func NewAuthService(repo repository.AuthRepository) *AuthService {
+	return &AuthService{
 		repo: repo,
 	}
 }
 
-func (a *authService) SignIn(ctx context.Context, req dto.SignInRequest) (res dto.SignInResponse, err error) {
+func (a *AuthService) SignIn(ctx context.Context, req dto.SignInRequest) (res dto.SignInResponse, err error) {
 	user := entity.User{
 		Email:    req.Email,
 		Password: req.Password,
@@ -42,7 +42,7 @@ func (a *authService) SignIn(ctx context.Context, req dto.SignInRequest) (res dt
 	return
 }
 
-func (a *authService) SignUp(ctx context.Context, req dto.SignUpRequest) (res dto.SignUpResponse, err error) {
+func (a *AuthService) SignUp(ctx context.Context, req dto.SignUpRequest) (res dto.SignUpResponse, err error) {
 	user := entity.User{
 		ID:       uuid.New().String(),
 		Name:     req.Name,

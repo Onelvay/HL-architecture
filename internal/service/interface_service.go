@@ -3,6 +3,7 @@ package service
 import (
 	"context"
 	"github.com/Onelvay/HL-architecture/internal/dto"
+	"github.com/Onelvay/HL-architecture/internal/entity"
 )
 
 type CourseService interface {
@@ -16,4 +17,5 @@ type AuthService interface {
 
 type OrderService interface {
 	Create(ctx context.Context, req dto.OrderRequest) (res dto.OrderResponse)
+	GetMany(ctx context.Context, userId string) (res []entity.Order, err error)
 }

@@ -27,14 +27,31 @@ func orderRoutes(router *gin.Engine, order *OrderHandler) {
 }
 func (o *OrderHandler) POST(ctx *gin.Context) {
 	var req dto.OrderRequest
-	fmt.Println(ctx.Get("x-testing-abay"))
+	userID, err := ctx.Get("x-userId")
+	if !err {
+		ctx.JSON(400, gin.H{"error": "no user_id"})
+		return
+	}
 	if err := ctx.ShouldBindJSON(&req); err != nil {
 		ctx.JSON(400, gin.H{"error": err.Error()})
 		return
 	}
+	req.UserId = fmt.Sprintf("%s", userID)
 	res := o.orderService.Create(ctx, req)
 	ctx.JSON(int(res.Status), res)
 }
+
 func (o *OrderHandler) GET(ctx *gin.Context) {
+	userID, ok := ctx.Get("x-userId")
+	if !ok {
+		ctx.JSON(400, gin.H{"error": "no user_id"})
+		return
+	}
+	orders, err := o.orderService.GetMany(ctx, fmt.Sprintf("%s", userID))
+	if err != nil {
+		ctx.JSON(500, gin.H{"error": err.Error()})
+		return
+	}
+	ctx.JSON(200, orders)
 
 }

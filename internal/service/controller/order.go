@@ -1,4 +1,4 @@
-package service
+package controller
 
 import (
 	"context"
@@ -8,17 +8,17 @@ import (
 	"github.com/google/uuid"
 )
 
-type orderService struct {
+type OrderService struct {
 	repo repository.OrderRepository
 }
 
-func newOrderService(repo repository.OrderRepository) OrderService {
-	return &orderService{
+func NewOrderService(repo repository.OrderRepository) *OrderService {
+	return &OrderService{
 		repo: repo,
 	}
 }
 
-func (o *orderService) Create(ctx context.Context, req dto.OrderRequest) (res dto.OrderResponse) {
+func (o *OrderService) Create(ctx context.Context, req dto.OrderRequest) (res dto.OrderResponse) {
 	id := uuid.New().String()
 	order := entity.Order{
 		ID:       id,
@@ -26,7 +26,7 @@ func (o *orderService) Create(ctx context.Context, req dto.OrderRequest) (res dt
 		CourseId: req.CourseId,
 	}
 
-	err := o.repo.POST(ctx, order)
+	err := o.repo.InsertOne(ctx, order)
 	if err != nil {
 		res.Status = 500
 		res.Error = err
@@ -34,4 +34,10 @@ func (o *orderService) Create(ctx context.Context, req dto.OrderRequest) (res dt
 	res.Status = 200
 	return
 
+}
+
+func (o *OrderService) GetMany(ctx context.Context, userId string) (res []entity.Order, err error) {
+	res, err = o.repo.GetMany(context.Background(), userId)
+
+	return
 }

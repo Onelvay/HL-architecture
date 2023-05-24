@@ -15,6 +15,6 @@ type AuthRepository interface {
 }
 
 type OrderRepository interface {
-	POST(ctx context.Context, req entity.Order) (err error)
-	GET(ctx context.Context, userId string) (orders []entity.Order, err error)
+	InsertOne(ctx context.Context, req entity.Order) (err error)
+	GetMany(ctx context.Context, userId string) (orders []entity.Order, err error)
 }

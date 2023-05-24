@@ -23,8 +23,8 @@ func (a *AuthRepository) SignIn(ctx context.Context, req entity.User) (user enti
 	err = a.db.GetContext(ctx, &user, query, args...)
 
 	return
-	return
 }
+
 func (a *AuthRepository) SignUp(ctx context.Context, req entity.User) (err error) {
 	query := "INSERT INTO users (id,name, email,password) VALUES (:id, :name, :email,:password)"
 

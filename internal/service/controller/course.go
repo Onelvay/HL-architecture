@@ -1,4 +1,4 @@
-package service
+package controller
 
 import (
 	"context"
@@ -6,15 +6,15 @@ import (
 	"github.com/Onelvay/HL-architecture/internal/repository"
 )
 
-type courseService struct {
+type CourseService struct {
 	repo repository.CourseRepository
 }
 
-func newCourseService(repo repository.CourseRepository) CourseService {
-	return &courseService{repo}
+func NewCourseService(repo repository.CourseRepository) *CourseService {
+	return &CourseService{repo}
 }
 
-func (p *courseService) GetRowById(ctx context.Context, id string) (res dto.CourseResponse, err error) {
+func (p *CourseService) GetRowById(ctx context.Context, id string) (res dto.CourseResponse, err error) {
 	product, err := p.repo.GetOne(ctx, id)
 
 	res = dto.ParseFromCourse(product)
