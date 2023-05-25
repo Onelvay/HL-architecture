@@ -1,0 +1,36 @@
+<!-- ============================================================== -->
+<!-- Fixed height Card Grid-->
+<!-- ============================================================== -->
+
+<!-- ============================================================== -->
+<!-- List with selection-->
+<!-- ============================================================== -->
+
+<!-- ============================================================== -->
+<!-- List with icons selection-->
+<!-- ============================================================== -->
+
+<!-- ============================================================== -->
+<!-- List with icons selection-->
+<!-- ============================================================== -->
+<div fxLayout="row">
+	<div fxFlex.gt-sm="100%" >
+		<mat-card>
+			<mat-card-content class="p-b-0 m-b-0">
+				<mat-card-title>Курсы на которые вы записаны</mat-card-title>
+				<mat-card-subtitle>Вы можете отказаться от подписки отправив заявку нам на почту</mat-card-subtitle>
+			</mat-card-content>   
+			<mat-list>
+				<mat-card-content class="p-t-0">    
+					<h3 mat-subheader>Курсы</h3>
+					<mat-list-item *ngFor="let folder of folders">
+						<mat-icon mat-list-icon>folder</mat-icon>
+						<h4 mat-line>{{folder.name}}</h4>
+						<p mat-line> {{folder.updated | date}} </p>
+					</mat-list-item>
+				</mat-card-content>   
+	
+			</mat-list>    
+		</mat-card>
+	</div>
+</div>

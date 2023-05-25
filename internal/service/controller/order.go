@@ -37,7 +37,7 @@ func (o *OrderService) Create(ctx context.Context, req dto.OrderRequest) (res dt
 }
 
 func (o *OrderService) GetMany(ctx context.Context, userId string) (res []entity.Order, err error) {
-	res, err = o.repo.GetMany(context.Background(), userId)
+	res, err = o.repo.GetManyById(context.Background(), userId)
 
 	return
 }

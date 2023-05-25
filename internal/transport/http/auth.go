@@ -17,7 +17,7 @@ func newAuthorizationHandler(authService service.AuthService) *authorization {
 func authRoutes(router *gin.Engine, a *authorization) {
 	group := router.Group("/auth")
 	{
-		group.GET("/sign-in", a.signIn)
+		group.POST("/sign-in", a.signIn)
 		group.POST("/sign-up", a.signUp)
 	}
 
@@ -46,6 +46,10 @@ func (a *authorization) signIn(c *gin.Context) {
 	}
 	res, err := a.authService.SignIn(c, req)
 	if err != nil {
+		if err.Error() == "sql: no rows in result set" {
+			c.JSON(400, gin.H{"error": err.Error()})
+			return
+		}
 		c.JSON(500, gin.H{"error": err.Error()})
 		return
 	}

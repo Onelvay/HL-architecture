@@ -5,21 +5,25 @@ import (
 )
 
 type CourseRequest struct {
-	ID    string  `json:"id"`
-	Name  string  `json:"fullName" validate:"required"`
-	Price float32 `json:"pseudonym" validate:"required"`
+	ID          string  `json:"id"`
+	Name        string  `json:"name" validate:"required"`
+	Description float32 `json:"description" validate:"required"`
+	ImgURL      string  `json:"imgURL"`
 }
 
 type CourseResponse struct {
-	ID    string  `json:"id"`
-	Name  string  `json:"fullName"`
-	Price float32 `json:"pseudonym"`
+	ID          string `json:"id"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	ImgURL      string `json:"imgURL"`
 }
 
 func ParseFromCourse(data entity.Course) (res CourseResponse) {
 	res = CourseResponse{
-		ID:   data.ID,
-		Name: data.Name,
+		ID:          data.ID,
+		Name:        data.Name,
+		Description: data.Description,
+		ImgURL:      data.ImgURL,
 	}
 	return
 }

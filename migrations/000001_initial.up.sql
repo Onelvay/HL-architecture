@@ -10,7 +10,8 @@ CREATE TABLE IF NOT EXISTS users(
 CREATE table IF NOT EXISTS courses(
     id            varchar primary key,
     name          varchar not null,
-    description   varchar not null
+    description   varchar not null,
+    imgURL   varchar not null
 );
 
 CREATE table if not exists orders(

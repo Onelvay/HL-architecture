@@ -5,6 +5,7 @@ import (
 	"github.com/Onelvay/HL-architecture/config"
 	"github.com/Onelvay/HL-architecture/internal/service"
 	"github.com/gin-gonic/gin"
+	"github.com/rs/cors"
 	"net/http"
 )
 
@@ -16,6 +17,8 @@ func NewServer(cfg config.Config, s service.Service) *Server {
 	router := gin.New()
 
 	router.Use(gin.Recovery())
+	router.Use(gin.Logger())
+
 	//router.MaxMultipartMemory = 16 << 20
 	//router.Use(gin.LoggerWithFormatter(func(param gin.LogFormatterParams) string {
 	//	return fmt.Sprintf("%s - [%s] \"%s %s %s %d %s \"%s\" %s\"\n",
@@ -40,10 +43,16 @@ func NewServer(cfg config.Config, s service.Service) *Server {
 	o := newOrderHandler(s.Order)
 	orderRoutes(router, o)
 
+	caw := cors.New(cors.Options{
+		AllowedMethods: []string{"GET", "POST", "PUT", "DELETE"},
+		AllowedHeaders: []string{"Content-Type", "Authorization"},
+		AllowedOrigins: []string{"http://localhost:4200"},
+	}).Handler(router)
+
 	return &Server{
 		&http.Server{
 			Addr:           ":" + cfg.Http.Port,
-			Handler:        router,
+			Handler:        caw,
 			ReadTimeout:    cfg.Http.ReadTimeout,
 			WriteTimeout:   cfg.Http.WriteTimeout,
 			MaxHeaderBytes: 1 << 20,

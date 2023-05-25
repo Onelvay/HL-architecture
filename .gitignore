@@ -1,0 +1,8 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+
+# dependencies
+angular-14/node_modules
+angular-14/.angular
+angular-14/e2e
+

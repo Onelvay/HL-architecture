@@ -15,7 +15,7 @@ func NewCourseRepository(db *sqlx.DB) *CourseRepository {
 }
 
 func (p *CourseRepository) GetOne(ctx context.Context, id string) (data entity.Course, err error) {
-	query := `SELECT id,name,price FROM products WHERE id=$1`
+	query := `SELECT id,name,description,imgurl FROM courses WHERE id=$1`
 	args := []any{id}
 
 	err = p.db.GetContext(ctx, &data, query, args...)

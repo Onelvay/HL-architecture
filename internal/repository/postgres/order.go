@@ -27,7 +27,7 @@ func (o *OrderRepository) InsertOne(ctx context.Context, req entity.Order) (err 
 
 	return
 }
-func (o *OrderRepository) GetMany(ctx context.Context, userId string) (orders []entity.Order, err error) {
+func (o *OrderRepository) GetManyById(ctx context.Context, userId string) (orders []entity.Order, err error) {
 	query := `SELECT order_id,user_id,course_id from orders where user_id = $1`
 
 	err = o.db.Select(&orders, query, userId)
