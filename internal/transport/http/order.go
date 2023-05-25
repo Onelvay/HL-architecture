@@ -23,6 +23,7 @@ func orderRoutes(router *gin.Engine, order *OrderHandler) {
 	{
 		group.POST("", order.POST)
 		group.GET("", order.GET)
+
 	}
 }
 func (o *OrderHandler) POST(ctx *gin.Context) {

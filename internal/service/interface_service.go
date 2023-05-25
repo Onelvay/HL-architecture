@@ -19,3 +19,7 @@ type OrderService interface {
 	Create(ctx context.Context, req dto.OrderRequest) (res dto.OrderResponse)
 	GetMany(ctx context.Context, userId string) (res []entity.Order, err error)
 }
+
+type UserService interface {
+	GetCourses(ctx context.Context) ([]entity.Course, error)
+}

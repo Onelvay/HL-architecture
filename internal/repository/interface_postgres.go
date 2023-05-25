@@ -18,3 +18,7 @@ type OrderRepository interface {
 	InsertOne(ctx context.Context, req entity.Order) (err error)
 	GetManyById(ctx context.Context, userId string) (orders []entity.Order, err error)
 }
+
+type UserRepository interface {
+	GetCourses(ctx context.Context) ([]entity.Course, error)
+}
