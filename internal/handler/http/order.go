@@ -41,7 +41,7 @@ func (o *OrderHandler) POST(ctx *gin.Context) {
 		return
 	}
 	req.UserId = fmt.Sprintf("%s", userID)
-
+	fmt.Println(req)
 	res := o.orderService.Create(ctx, req)
 	if res.Error != nil {
 		logger.Error(res.Error)

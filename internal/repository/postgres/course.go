@@ -21,3 +21,10 @@ func (p *CourseRepository) GetOne(ctx context.Context, id string) (data entity.C
 	err = p.db.GetContext(ctx, &data, query, args...)
 	return
 }
+
+func (p *CourseRepository) GetMany(ctx context.Context) (data []entity.Course, err error) {
+	query := `SELECT id,name,description,imgurl FROM courses`
+
+	err = p.db.SelectContext(ctx, &data, query)
+	return
+}

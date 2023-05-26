@@ -42,18 +42,18 @@ func (o *OrderRepository) GetManyById(ctx context.Context, userId string) (order
 }
 
 func (o *OrderRepository) exist(ctx context.Context, userid, id string) error {
-	var order entity.Order
-
-	query := `SELECT order_id,user_id,course_id from orders where user_id = $1 and course_id=$2`
-	err := o.db.Select(&order, query, userid, id)
+	query := `SELECT order_id,user_id,course_id from orders where user_id = $1 and course_id=$2 limit 1 `
+	res, err := o.db.Exec(query, userid, id)
 
 	if err != nil {
-		if order.ID != "" {
-			return errors.New("exist")
-		} else {
-			return err
-		}
+		return err
 	}
-
+	rows, err := res.RowsAffected()
+	if err != nil {
+		return err
+	}
+	if rows != 0 {
+		return errors.New("exist")
+	}
 	return nil
 }

@@ -15,8 +15,19 @@ func NewCourseService(repo repository.CourseRepository) *CourseService {
 }
 
 func (p *CourseService) GetRowById(ctx context.Context, id string) (res dto.CourseResponse, err error) {
-	product, err := p.repo.GetOne(ctx, id)
+	courses, err := p.repo.GetOne(ctx, id)
 
-	res = dto.ParseFromCourse(product)
+	res = dto.ParseFromCourse(courses)
+	return
+}
+func (p *CourseService) GetMany(ctx context.Context) (res []dto.CourseResponse, err error) {
+	courses, err := p.repo.GetMany(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	for _, v := range courses {
+		res = append(res, dto.ParseFromCourse(v))
+	}
 	return
 }

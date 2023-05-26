@@ -8,6 +8,7 @@ import (
 
 type CourseService interface {
 	GetRowById(ctx context.Context, id string) (res dto.CourseResponse, err error)
+	GetMany(ctx context.Context) (res []dto.CourseResponse, err error)
 }
 
 type AuthService interface {

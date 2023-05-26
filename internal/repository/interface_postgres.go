@@ -7,6 +7,7 @@ import (
 
 type CourseRepository interface {
 	GetOne(ctx context.Context, id string) (data entity.Course, err error)
+	GetMany(ctx context.Context) (data []entity.Course, err error)
 }
 
 type AuthRepository interface {

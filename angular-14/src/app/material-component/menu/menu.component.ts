@@ -17,9 +17,11 @@ export class MenuComponent {
   }
   register(courseId:string){
     const token= localStorage.getItem('token')
+    console.log(token)
     if(token){
       this.service.addCourse(courseId,token).subscribe((data)=>{
         if (data.error!=null){
+          console.log(data.error)
           alert("вы уже подписаны на этот курс")
         }
       })

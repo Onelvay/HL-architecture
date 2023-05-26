@@ -21,6 +21,13 @@ export class BackendService {
       {email:email, password:password}
     )
   }
+  signUp(name:string,password:string){
+    return this.client.post<Tokena>(
+      `${this.BASE_URL}/auth/sign-up`,
+      {name:"default",email:name, password:password}
+    )
+  }
+
   getUserCourses(token:string):Observable<Course[]>{
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.client.get<Course[]>(`${this.BASE_URL}/user/course`,{headers});
