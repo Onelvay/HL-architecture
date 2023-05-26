@@ -16,7 +16,7 @@ type AuthService struct {
 }
 
 const (
-	expireDuration = 15 * time.Minute
+	expireDuration = 90 * time.Minute // временно
 )
 
 func NewAuthService(repo repository.AuthRepository) *AuthService {

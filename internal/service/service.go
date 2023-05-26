@@ -24,6 +24,6 @@ func New(d Dependencies) Service {
 		Course: controller.NewCourseService(d.CourseRepo),
 		Auth:   controller.NewAuthService(d.AuthRepo),
 		Order:  controller.NewOrderService(d.OrderRepo),
-		User:   controller.NewUserService(d.UserRepo),
+		User:   controller.NewUserService(d.UserRepo, d.OrderRepo, d.CourseRepo),
 	}
 }

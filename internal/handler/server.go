@@ -1,8 +1,9 @@
-package http
+package handler
 
 import (
 	"context"
 	"github.com/Onelvay/HL-architecture/config"
+	routes "github.com/Onelvay/HL-architecture/internal/handler/http"
 	"github.com/Onelvay/HL-architecture/internal/service"
 	"github.com/gin-gonic/gin"
 	"github.com/rs/cors"
@@ -16,10 +17,11 @@ type Server struct {
 func NewServer(cfg config.Config, s service.Service) *Server {
 	router := gin.New()
 
-	router.Use(gin.Recovery())
-	router.Use(gin.Logger())
+	router.Use(gin.Recovery(),
+		gin.Logger(),
+	)
 
-	//router.MaxMultipartMemory = 16 << 20
+	router.MaxMultipartMemory = 8 << 20
 	//router.Use(gin.LoggerWithFormatter(func(param gin.LogFormatterParams) string {
 	//	return fmt.Sprintf("%s - [%s] \"%s %s %s %d %s \"%s\" %s\"\n",
 	//		param.ClientIP,
@@ -33,15 +35,7 @@ func NewServer(cfg config.Config, s service.Service) *Server {
 	//		param.ErrorMessage,
 	//	)
 	//}))
-
-	c := newCourseHandler(s.Course)
-	courseRoutes(router, c)
-
-	a := newAuthorizationHandler(s.Auth)
-	authRoutes(router, a)
-
-	o := newOrderHandler(s.Order)
-	orderRoutes(router, o)
+	routes.InitRoutes(router, s)
 
 	caw := cors.New(cors.Options{
 		AllowedMethods: []string{"GET", "POST", "PUT", "DELETE"},

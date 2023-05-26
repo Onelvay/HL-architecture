@@ -17,3 +17,7 @@ export interface Order{
     user_id:string,
     course_id:string
 }
+export interface OrderResponse{
+    status:any,
+    error:any
+}

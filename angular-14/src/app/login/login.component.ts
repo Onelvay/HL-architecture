@@ -28,6 +28,7 @@ export class LoginComponent implements OnInit {
   login() {
     this.back.signIn(this.username, this.password).subscribe((data) => {
       localStorage.setItem('token', data.accessToken);
+      localStorage.setItem('username',this.username);
       this.logged = true;
     });
     const token = localStorage.getItem('token');

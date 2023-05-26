@@ -20,6 +20,7 @@ import { SpinnerComponent } from './shared/spinner.component';
 import { LoginComponent } from './login/login.component';
 import {  ReactiveFormsModule } from '@angular/forms';
 import { ProfileComponent } from './profile/profile.component';
+import { SignupComponent } from './signup/signup.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +29,8 @@ import { ProfileComponent } from './profile/profile.component';
     SpinnerComponent,
     AppSidebarComponent,
     LoginComponent,
-    ProfileComponent
+    ProfileComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
-import { Course,User,Tokena,Order } from './models';
+import { Course,User,Tokena,Order,OrderResponse } from './models';
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +21,14 @@ export class BackendService {
       {email:email, password:password}
     )
   }
-  getUserCourses(token:string):Observable<Order[]>{
+  getUserCourses(token:string):Observable<Course[]>{
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.client.get<Order[]>(`${this.BASE_URL}/order`,{headers});
+    return this.client.get<Course[]>(`${this.BASE_URL}/user/course`,{headers});
+  }
+  addCourse(courseId:string,token:string):Observable<OrderResponse>{
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.client.post<OrderResponse>(
+      `${this.BASE_URL}/order`,
+      {course_id:courseId},{headers})
   }
 }

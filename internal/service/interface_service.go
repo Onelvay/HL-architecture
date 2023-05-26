@@ -21,5 +21,5 @@ type OrderService interface {
 }
 
 type UserService interface {
-	GetCourses(ctx context.Context) ([]entity.Course, error)
+	GetCourses(ctx context.Context, userID string) ([]dto.CourseResponse, error)
 }

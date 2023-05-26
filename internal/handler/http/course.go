@@ -3,6 +3,7 @@ package http
 import (
 	"github.com/Onelvay/HL-architecture/internal/dto"
 	"github.com/Onelvay/HL-architecture/internal/service"
+	"github.com/Onelvay/HL-architecture/pkg/logger"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -52,6 +53,7 @@ func (h *CourseHandler) getById(ctx *gin.Context) {
 	res, err := h.courseService.GetRowById(ctx, id)
 
 	if err != nil {
+		logger.Error(err)
 		if err.Error() == "sql: no rows in result set" {
 			ctx.AbortWithError(http.StatusNotFound, err)
 		} else {

@@ -15,4 +15,14 @@ export class MenuComponent {
       this.test=val
     })
   }
+  register(courseId:string){
+    const token= localStorage.getItem('token')
+    if(token){
+      this.service.addCourse(courseId,token).subscribe((data)=>{
+        if (data.error!=null){
+          alert("вы уже подписаны на этот курс")
+        }
+      })
+    }
+  }
 }

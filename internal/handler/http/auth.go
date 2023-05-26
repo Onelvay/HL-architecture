@@ -3,6 +3,7 @@ package http
 import (
 	"github.com/Onelvay/HL-architecture/internal/dto"
 	"github.com/Onelvay/HL-architecture/internal/service"
+	"github.com/Onelvay/HL-architecture/pkg/logger"
 	"github.com/gin-gonic/gin"
 )
 
@@ -30,11 +31,14 @@ func (a *authorization) signUp(c *gin.Context) {
 		c.JSON(400, gin.H{"error": err.Error()})
 		return
 	}
+
 	res, err := a.authService.SignUp(c, req)
 	if err != nil {
+		logger.Error(err)
 		c.JSON(500, gin.H{"error": err.Error()})
 		return
 	}
+
 	c.JSON(200, res)
 }
 
@@ -44,8 +48,11 @@ func (a *authorization) signIn(c *gin.Context) {
 		c.JSON(400, gin.H{"error": err.Error()})
 		return
 	}
+
 	res, err := a.authService.SignIn(c, req)
 	if err != nil {
+		logger.Error(err)
+
 		if err.Error() == "sql: no rows in result set" {
 			c.JSON(400, gin.H{"error": err.Error()})
 			return

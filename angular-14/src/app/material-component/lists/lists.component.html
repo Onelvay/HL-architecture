@@ -21,12 +21,13 @@
 				<mat-card-subtitle>Вы можете отказаться от подписки отправив заявку нам на почту</mat-card-subtitle>
 			</mat-card-content>   
 			<mat-list>
-				<mat-card-content class="p-t-0">    
+				<mat-card-content class="p-t-0" >    
 					<h3 mat-subheader>Курсы</h3>
-					<mat-list-item *ngFor="let folder of folders">
-						<mat-icon mat-list-icon>folder</mat-icon>
-						<h4 mat-line>{{folder.name}}</h4>
-						<p mat-line> {{folder.updated | date}} </p>
+					<mat-list-item *ngFor="let course of courses">
+						<div class="m-r-20">
+							<img class="img-circle" width="50" [src]=course.imgURL alt="Image"> </div>
+						<h4 mat-line>{{course.name}}</h4>
+						<p mat-line> {{course.description}} </p>
 					</mat-list-item>
 				</mat-card-content>   
 	

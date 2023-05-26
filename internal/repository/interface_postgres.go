@@ -20,5 +20,4 @@ type OrderRepository interface {
 }
 
 type UserRepository interface {
-	GetCourses(ctx context.Context) ([]entity.Course, error)
 }

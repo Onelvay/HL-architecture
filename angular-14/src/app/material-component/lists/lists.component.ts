@@ -9,7 +9,7 @@ import { Course ,Order} from 'src/app/models';
   styleUrls: ['./lists.component.scss']
 })
 export class ListsComponent {
-  courses:Order[]=[];
+  courses:Course[]=[];
   constructor(private back:BackendService){}
   ngOnInit(){
     const token  = localStorage.getItem('token')
@@ -17,16 +17,9 @@ export class ListsComponent {
     if (token){
       this.back.getUserCourses(token).subscribe((val)=>{
         this.courses=val
-        console.log(val)
       })
       
     }
-    this.getCourses()
-
-  }
-  getCourses(){
-    const courses= this.back.getUserCourses("asd")
-    console.log(courses)
   }
   folders = [
     {

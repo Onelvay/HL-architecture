@@ -1,8 +1,6 @@
 package postgres
 
 import (
-	"context"
-	"github.com/Onelvay/HL-architecture/internal/entity"
 	"github.com/jmoiron/sqlx"
 )
 
@@ -15,6 +13,7 @@ func NewUserRepository(db *sqlx.DB) *UserRepository {
 		db: db,
 	}
 }
-func (u *UserRepository) GetCourses(ctx context.Context) (courses []entity.Course, err error) {
-	return
-}
+
+//func (u *UserRepository) GetCourses(ctx context.Context, userID string) (courses []entity.Course, err error) {
+//	return
+//}

@@ -7,6 +7,7 @@ import { MenuItems } from '../../../shared/menu-items/menu-items';
   styleUrls: []
 })
 export class AppSidebarComponent implements OnDestroy {
+  username:string="";
   logged:boolean=false;
   mobileQuery: MediaQueryList;
 
@@ -23,8 +24,13 @@ export class AppSidebarComponent implements OnDestroy {
   }
   ngOnInit() {
     const token = localStorage.getItem('token');
+    const username = localStorage.getItem('username');
     if (token) {
       this.logged = true;
+     
+    }
+    if(username){
+      this.username=username;
     }
   }
   login() {
@@ -32,6 +38,7 @@ export class AppSidebarComponent implements OnDestroy {
     }
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('username');
     this.logged = false;
   }
   ngOnDestroy(): void {
