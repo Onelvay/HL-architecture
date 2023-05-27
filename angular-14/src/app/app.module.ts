@@ -21,6 +21,7 @@ import { LoginComponent } from './login/login.component';
 import {  ReactiveFormsModule } from '@angular/forms';
 import { ProfileComponent } from './profile/profile.component';
 import { SignupComponent } from './signup/signup.component';
+import { MainpageComponent } from './mainpage/mainpage.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +31,8 @@ import { SignupComponent } from './signup/signup.component';
     AppSidebarComponent,
     LoginComponent,
     ProfileComponent,
-    SignupComponent
+    SignupComponent,
+    MainpageComponent
   ],
   imports: [
     BrowserModule,

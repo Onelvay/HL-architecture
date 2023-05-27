@@ -24,7 +24,7 @@ func userRoutes(router *gin.Engine, user *UserHandler) {
 
 	{
 		group.GET("/course", user.getCourses)
-		group.POST("/course", user.registerCourse)
+
 	}
 }
 
@@ -45,8 +45,4 @@ func (u *UserHandler) getCourses(ctx *gin.Context) {
 	}
 
 	ctx.JSON(200, courses)
-}
-
-func (u *UserHandler) registerCourse(ctx *gin.Context) {
-
 }

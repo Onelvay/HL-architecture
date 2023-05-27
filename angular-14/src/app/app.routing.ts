@@ -4,6 +4,7 @@ import { FullComponent } from './layouts/full/full.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SignupComponent } from './signup/signup.component';
+import { MainpageComponent } from './mainpage/mainpage.component';
 
 export const AppRoutes: Routes = [
   { path:'login',component:LoginComponent},
@@ -13,6 +14,7 @@ export const AppRoutes: Routes = [
     component: FullComponent,
     
     children: [
+      {path:'mainpage',component:MainpageComponent},
       { path:'settings',component:ProfileComponent},
       
       {

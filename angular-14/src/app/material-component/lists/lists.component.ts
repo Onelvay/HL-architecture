@@ -18,22 +18,7 @@ export class ListsComponent {
       this.back.getUserCourses(token).subscribe((val)=>{
         this.courses=val
       })
-      
+
     }
   }
-  folders = [
-    {
-      name: 'Python 3',
-      updated: new Date('1/28/04')
-    },
-    {
-      name: 'Django',
-      updated: new Date('1/17/22')
-    },
-    {
-      name: 'Angular 15.3',
-      updated: new Date('1/28/23')
-    }
-  ];
-
 }

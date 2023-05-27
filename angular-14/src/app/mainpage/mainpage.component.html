@@ -1,0 +1,57 @@
+<div fxLayout="row" fxLayoutWrap="wrap">
+    <div fxFlex.gt-sm="100%" fxFlex="100">
+        <mat-card *ngFor="let course of test">
+            <div class="m-r-20">
+                <img class="img-circle" width="50" [src]=course.imgURL alt="Image"> </div>
+            <mat-card-content>
+                
+                <mat-card-title>{{course.name}}</mat-card-title>
+                <mat-card-subtitle> {{course.description}}</mat-card-subtitle>
+                    <button mat-raised-button color="accent" (click)="register(course.id)">Регистрация</button>
+            </mat-card-content>    
+        </mat-card>
+    </div>    
+</div>
+<mat-card>
+    <mat-tab-group>
+        <!-- Tab 1 -->
+        <mat-tab label="Отзывы">
+            <mat-card-content>
+                <div class="d-flex no-blcok" *ngFor='let activity of activityData'>
+                    <div class="m-r-20">
+                        <img class="img-circle" width="50" [src]=activity.image alt="Image"> </div>
+                    <div class="p-b-20 b-b m-b-30">
+                        <h4 class="m-0">{{activity.name}}
+                            <small class="text-muted">({{activity.commentTime}})</small>
+                        </h4>
+                        <p class="text-muted">{{activity.comment}}</p>
+
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-tab>
+        <!-- End Tab 1 -->
+      
+    </mat-tab-group>
+</mat-card>
+
+<div fxLayout="row" fxLayoutWrap="wrap">
+	<!-- Card column -->
+	<div fxFlex.gt-sm="100%" fxFlex="100">
+		<mat-card>
+			<mat-card-content class="m-b-0">
+				<mat-card-title>О веб приложений <span class="bg-success text-white rounded font-12 p-l-5 p-r-5">made by Aray Alenova</span></mat-card-title>
+				<mat-card-subtitle>Вы хотите записаться на курсы, но не знаете где? <br><br>Выбирайте НАС</mat-card-subtitle>
+			</mat-card-content>
+			<div class="p-l-20 p-r-20 p-b-20">
+	
+				<h5 class="m-b-0">Мы готовы привести 3 причины почему именно МЫ</h5>
+				<mat-tab-group animationDuration="2000ms" style="margin-top: 5px;">
+				  <mat-tab label="Качество" >У нас только качественные курсы, вы не останетесь недовольным!</mat-tab>
+				  <mat-tab label="Отзывы">Реальные отзывы от реальных людей, только у нас вы можете узнать мнение не подставных людей</mat-tab>
+				  <mat-tab label="Цена">У нас все бесплатно, мы сами берем на себя расходы, потому что будущее нашего поколения это наше будущее</mat-tab>
+				</mat-tab-group>
+			</div>			
+		</mat-card>    
+	</div>
+</div>
