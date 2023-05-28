@@ -3,7 +3,7 @@ package postgres
 import (
 	"context"
 	"errors"
-	"fmt"
+	"github.com/Onelvay/HL-architecture/internal/dto"
 	"github.com/Onelvay/HL-architecture/internal/entity"
 	"github.com/jmoiron/sqlx"
 )
@@ -37,7 +37,7 @@ func (o *OrderRepository) GetManyById(ctx context.Context, userId string) (order
 	query := `SELECT order_id,user_id,course_id from orders where user_id = $1`
 
 	err = o.db.Select(&orders, query, userId)
-	fmt.Println(orders, userId)
+
 	return
 }
 
@@ -66,6 +66,17 @@ func (o *OrderRepository) AddReview(ctx context.Context, req entity.OrderReview)
 		"comment": req.Comment,
 		"rating":  req.Rating,
 	})
+
+	return
+}
+
+func (o *OrderRepository) GetAllReviews(ctx context.Context) (orders []dto.ReviewResponse, err error) {
+	query := `select u.email as user_name,c.name as course_name, r.rating,r.comment,r.created_at from orders 
+    inner join courses c on orders.course_id = c.id 
+    inner join users u on u.id = orders.user_id 
+    inner join reviews r on orders.order_id = r.order_id`
+
+	err = o.db.Select(&orders, query)
 
 	return
 }

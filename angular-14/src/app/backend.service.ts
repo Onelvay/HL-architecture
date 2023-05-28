@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
-import { Course,User,Tokena,Order,OrderResponse } from './models';
+import { Course,User,Tokena,Order,OrderResponse,Review } from './models';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +31,10 @@ export class BackendService {
   getUserCourses(token:string):Observable<Course[]>{
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.client.get<Course[]>(`${this.BASE_URL}/user/course`,{headers});
+  }
+  getReviews(token:string):Observable<Review[]>{
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.client.get<Review[]>(`${this.BASE_URL}/order/review`,{headers});
   }
   addCourse(courseId:string,token:string):Observable<OrderResponse>{
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);

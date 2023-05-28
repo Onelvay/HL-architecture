@@ -1,3 +1,4 @@
+
 export interface Course{
     id:string,
     name:string,
@@ -20,4 +21,11 @@ export interface Order{
 export interface OrderResponse{
     status:any,
     error:any
+}
+export interface Review{
+    user_name:string
+    course_name:string
+    rating :number
+    comment:string
+    created_at:string
 }

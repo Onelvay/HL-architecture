@@ -25,7 +25,7 @@ func orderRoutes(router *gin.Engine, order *OrderHandler) {
 		group.POST("", order.create)
 		group.GET("", order.get)
 		group.POST("/review", order.addReview)
-
+		group.GET("/review", order.getAllReviews)
 	}
 }
 func (o *OrderHandler) create(ctx *gin.Context) {
@@ -83,4 +83,12 @@ func (o *OrderHandler) addReview(ctx *gin.Context) {
 	}
 
 	ctx.Status(200)
+}
+func (o *OrderHandler) getAllReviews(ctx *gin.Context) {
+	orders, err := o.orderService.GetAllReviews(ctx)
+	if err != nil {
+		ctx.JSON(500, gin.H{"error": err.Error()})
+		return
+	}
+	ctx.JSON(200, orders)
 }

@@ -3,6 +3,7 @@ CREATE TABLE IF NOT EXISTS users(
      name         varchar not null ,
      password     varchar not null ,
      email        varchar not null unique ,
+     imgURL       varchar default 'https://w7.pngwing.com/pngs/52/368/png-transparent-user-profile-computer-icons-avatar-avatar-heroes-monochrome-desktop-wallpaper.png',
      created_at   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
      updated_at   TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

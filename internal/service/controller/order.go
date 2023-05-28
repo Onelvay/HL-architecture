@@ -5,6 +5,7 @@ import (
 	"github.com/Onelvay/HL-architecture/internal/dto"
 	"github.com/Onelvay/HL-architecture/internal/entity"
 	"github.com/Onelvay/HL-architecture/internal/repository"
+	"github.com/Onelvay/HL-architecture/pkg/logger"
 	"github.com/google/uuid"
 )
 
@@ -51,5 +52,13 @@ func (o *OrderService) AddReview(ctx context.Context, req dto.OrderReviewRequest
 
 	err = o.repo.AddReview(ctx, review)
 
+	return
+}
+
+func (o *OrderService) GetAllReviews(ctx context.Context) (orders []dto.ReviewResponse, err error) {
+	orders, err = o.repo.GetAllReviews(ctx)
+	if err != nil {
+		logger.Error(err)
+	}
 	return
 }
