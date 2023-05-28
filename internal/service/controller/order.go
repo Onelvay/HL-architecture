@@ -38,6 +38,18 @@ func (o *OrderService) Create(ctx context.Context, req dto.OrderRequest) (res dt
 
 func (o *OrderService) GetMany(ctx context.Context, userId string) (res []entity.Order, err error) {
 	res, err = o.repo.GetManyById(context.Background(), userId)
-	
+
+	return
+}
+
+func (o *OrderService) AddReview(ctx context.Context, req dto.OrderReviewRequest) (err error) {
+	review := entity.OrderReview{
+		OrderID: req.OrderId,
+		Comment: req.Comment,
+		Rating:  req.Rating,
+	}
+
+	err = o.repo.AddReview(ctx, review)
+
 	return
 }

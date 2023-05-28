@@ -57,3 +57,15 @@ func (o *OrderRepository) exist(ctx context.Context, userid, id string) error {
 	}
 	return nil
 }
+
+func (o *OrderRepository) AddReview(ctx context.Context, req entity.OrderReview) (err error) {
+	query := "INSERT INTO reviews (order_id, comment,rating) VALUES (:id, :comment,:rating)"
+
+	_, err = o.db.NamedExec(query, map[string]interface{}{
+		"id":      req.OrderID,
+		"comment": req.Comment,
+		"rating":  req.Rating,
+	})
+
+	return
+}

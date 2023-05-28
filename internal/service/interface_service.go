@@ -19,6 +19,7 @@ type AuthService interface {
 type OrderService interface {
 	Create(ctx context.Context, req dto.OrderRequest) (res dto.OrderResponse)
 	GetMany(ctx context.Context, userId string) (res []entity.Order, err error)
+	AddReview(ctx context.Context, req dto.OrderReviewRequest) (err error)
 }
 
 type UserService interface {

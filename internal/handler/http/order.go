@@ -22,12 +22,13 @@ func orderRoutes(router *gin.Engine, order *OrderHandler) {
 	group := router.Group("/order")
 	group.Use(Middleware)
 	{
-		group.POST("", order.POST)
-		group.GET("", order.GET)
+		group.POST("", order.create)
+		group.GET("", order.get)
+		group.POST("/review", order.addReview)
 
 	}
 }
-func (o *OrderHandler) POST(ctx *gin.Context) {
+func (o *OrderHandler) create(ctx *gin.Context) {
 	var req dto.OrderRequest
 
 	userID, err := ctx.Get("x-userId")
@@ -49,7 +50,7 @@ func (o *OrderHandler) POST(ctx *gin.Context) {
 	ctx.JSON(int(res.Status), res)
 }
 
-func (o *OrderHandler) GET(ctx *gin.Context) {
+func (o *OrderHandler) get(ctx *gin.Context) {
 	userID, ok := ctx.Get("x-userId")
 	if !ok {
 		ctx.JSON(400, gin.H{"error": "no user_id"})
@@ -64,4 +65,22 @@ func (o *OrderHandler) GET(ctx *gin.Context) {
 	}
 
 	ctx.JSON(200, orders)
+}
+
+func (o *OrderHandler) addReview(ctx *gin.Context) {
+	var req dto.OrderReviewRequest
+	if err := ctx.ShouldBindJSON(&req); err != nil {
+		logger.Error(err)
+		ctx.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
+
+	err := o.orderService.AddReview(ctx, req)
+	if err != nil {
+		logger.Error(err)
+		ctx.JSON(500, gin.H{"error": err.Error()})
+		return
+	}
+
+	ctx.Status(200)
 }

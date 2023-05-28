@@ -22,6 +22,8 @@ import {  ReactiveFormsModule } from '@angular/forms';
 import { ProfileComponent } from './profile/profile.component';
 import { SignupComponent } from './signup/signup.component';
 import { MainpageComponent } from './mainpage/mainpage.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,6 +37,7 @@ import { MainpageComponent } from './mainpage/mainpage.component';
     MainpageComponent
   ],
   imports: [
+    NgApexchartsModule,
     BrowserModule,
     BrowserAnimationsModule,
     DemoMaterialModule,
