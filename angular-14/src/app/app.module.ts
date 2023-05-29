@@ -23,6 +23,9 @@ import { ProfileComponent } from './profile/profile.component';
 import { SignupComponent } from './signup/signup.component';
 import { MainpageComponent } from './mainpage/mainpage.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { ConfirmComponent } from './confirm/confirm.component';
+import { ErrorComponent } from './error/error.component';
+import { OtpiskaComponent } from './otpiska/otpiska.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,10 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     LoginComponent,
     ProfileComponent,
     SignupComponent,
-    MainpageComponent
+    MainpageComponent,
+    ConfirmComponent,
+    ErrorComponent,
+    OtpiskaComponent
   ],
   imports: [
     NgApexchartsModule,

@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import {MatListModule} from '@angular/material/list';
 import { BackendService } from 'src/app/backend.service';
+import { ConfirmComponent } from 'src/app/confirm/confirm.component';
 import { Course ,Order} from 'src/app/models';
+import { OtpiskaComponent } from 'src/app/otpiska/otpiska.component';
 
 @Component({
   selector: 'app-lists',
@@ -10,7 +13,7 @@ import { Course ,Order} from 'src/app/models';
 })
 export class ListsComponent {
   courses:Course[]=[];
-  constructor(private back:BackendService){}
+  constructor(private back:BackendService,private dialog: MatDialog){}
   ngOnInit(){
     const token  = localStorage.getItem('token')
     console.log(token)
@@ -21,4 +24,13 @@ export class ListsComponent {
 
     }
   }
+  testt():void{
+    const dialogRef = this.dialog.open(OtpiskaComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log("qweqweqw")// Выполните действия при подтверждении регистрации
+      }
+  });
+}
 }

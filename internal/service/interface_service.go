@@ -23,6 +23,11 @@ type OrderService interface {
 	GetAllReviews(ctx context.Context) (orders []dto.ReviewResponse, err error)
 }
 
+type UserOrderService interface {
+	Create(ctx context.Context, req dto.OrderRequest) (res dto.OrderResponse)
+	AddReview(ctx context.Context, req dto.OrderReviewRequest) (err error)
+}
+
 type UserService interface {
 	GetCourses(ctx context.Context, userID string) ([]dto.CourseResponse, error)
 }
