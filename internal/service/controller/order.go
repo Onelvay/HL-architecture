@@ -19,7 +19,7 @@ func NewOrderService(repo repository.OrderRepository) *OrderService {
 	}
 }
 
-func (o *OrderService) Create(ctx context.Context, req dto.OrderRequest) (res dto.OrderResponse) {
+func (o *OrderService) CreateRow(ctx context.Context, req dto.OrderRequest) (res dto.OrderResponse) {
 	id := uuid.New().String()
 	order := entity.Order{
 		ID:       id,
@@ -61,4 +61,14 @@ func (o *OrderService) GetAllReviews(ctx context.Context) (orders []dto.ReviewRe
 		logger.Error(err)
 	}
 	return
+}
+
+func (o *OrderService) DeleteByOrderId(ctx context.Context, req dto.OrderDeleteRequest) (err error) {
+	orderId := req.OrderId
+	err = o.repo.DeleteRow(ctx, orderId)
+	return
+}
+
+func (o *OrderService) DeleteByUserId(ctx context.Context, req dto.OrderDeleteRequestByUser) error {
+	err = o.repo.DeleteRowByUserId(ctx, req.UserId, req.CourseId)
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import { Course,User,Tokena,Order,OrderResponse,Review } from './models';
+import { SassString } from 'sass';
 
 @Injectable({
   providedIn: 'root'
@@ -41,5 +42,10 @@ export class BackendService {
     return this.client.post<OrderResponse>(
       `${this.BASE_URL}/order`,
       {course_id:courseId},{headers})
+  }
+
+  deleteOrder(token:string,order_id:string){
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.client.delete<OrderResponse>(`${this.BASE_URL}/order/${order_id}`,{headers})
   }
 }

@@ -80,3 +80,53 @@ func (o *OrderRepository) GetAllReviews(ctx context.Context) (orders []dto.Revie
 
 	return
 }
+
+func (o *OrderRepository) DeleteRow(ctx context.Context, orderId string) (err error) {
+	if err = o.deleteReview(ctx, orderId); err != nil {
+		return
+	}
+
+	query := `delete from orders where order_id = :order_id`
+
+	_, err = o.db.NamedExec(query, map[string]interface{}{
+		"order_id": orderId,
+	})
+	return
+}
+
+func (o *OrderRepository) deleteReview(ctx context.Context, orderId string) (err error) {
+	query := `delete from reviews where order_id = :order_id`
+
+	_, err = o.db.NamedExec(query, map[string]interface{}{
+		"order_id": orderId,
+	})
+
+	return
+}
+
+func (o *OrderRepository) DeleteRowByUserId(ctx context.Context, userId, courseId string) (err error) {
+	orderId, err := o.getOrderIdById(userId, courseId)
+	if err != nil {
+		return
+	}
+
+	if err = o.deleteReview(ctx, orderId); err != nil {
+		return
+	}
+
+	query := `delete from orders where course_id = :order_id and user_id = :user_id`
+
+	_, err = o.db.NamedExec(query, map[string]interface{}{
+		"user_id":   userId,
+		"course_id": courseId,
+	})
+	return
+}
+
+func (o *OrderRepository) getOrderIdById(userId, courseId string) (orderId string, err error) {
+	query := `select order_id from orders where course_id = $1 and user_id = $2 limit 1 `
+
+	err = o.db.Select(&orderId, query, courseId, userId)
+
+	return
+}

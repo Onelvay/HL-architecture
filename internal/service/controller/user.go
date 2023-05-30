@@ -9,11 +9,11 @@ import (
 
 type UserService struct {
 	userRepo   repository.UserRepository
-	orderRepo  repository.OrderRepository
+	orderRepo  repository.UserOrderRepository
 	courseRepo repository.CourseRepository
 }
 
-func NewUserService(user repository.UserRepository, order repository.OrderRepository, course repository.CourseRepository) *UserService {
+func NewUserService(user repository.UserRepository, order repository.UserOrderRepository, course repository.CourseRepository) *UserService {
 	return &UserService{
 		userRepo:   user,
 		orderRepo:  order,

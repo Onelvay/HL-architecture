@@ -17,15 +17,12 @@ type AuthService interface {
 }
 
 type OrderService interface {
-	Create(ctx context.Context, req dto.OrderRequest) (res dto.OrderResponse)
+	CreateRow(ctx context.Context, req dto.OrderRequest) (res dto.OrderResponse)
 	GetMany(ctx context.Context, userId string) (res []entity.Order, err error)
 	AddReview(ctx context.Context, req dto.OrderReviewRequest) (err error)
 	GetAllReviews(ctx context.Context) (orders []dto.ReviewResponse, err error)
-}
-
-type UserOrderService interface {
-	Create(ctx context.Context, req dto.OrderRequest) (res dto.OrderResponse)
-	AddReview(ctx context.Context, req dto.OrderReviewRequest) (err error)
+	DeleteByOrderId(ctx context.Context, req dto.OrderDeleteRequest) error
+	DeleteByUserId(ctx context.Context, req dto.OrderDeleteRequestByUser) error
 }
 
 type UserService interface {

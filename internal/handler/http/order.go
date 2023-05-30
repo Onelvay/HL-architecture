@@ -26,6 +26,7 @@ func orderRoutes(router *gin.Engine, order *OrderHandler) {
 		group.GET("", order.get)
 		group.POST("/review", order.addReview)
 		group.GET("/review", order.getAllReviews)
+		group.DELETE("/:id", order.deleteOrder)
 	}
 }
 func (o *OrderHandler) create(ctx *gin.Context) {
@@ -43,7 +44,7 @@ func (o *OrderHandler) create(ctx *gin.Context) {
 	}
 	req.UserId = fmt.Sprintf("%s", userID)
 	fmt.Println(req)
-	res := o.orderService.Create(ctx, req)
+	res := o.orderService.CreateRow(ctx, req)
 	if res.Error != nil {
 		logger.Error(res.Error)
 	}
@@ -91,4 +92,26 @@ func (o *OrderHandler) getAllReviews(ctx *gin.Context) {
 		return
 	}
 	ctx.JSON(200, orders)
+}
+
+func (o *OrderHandler) deleteOrder(ctx *gin.Context) {
+	userID, ok := ctx.Get("x-userId")
+	if !ok {
+		ctx.JSON(400, gin.H{"error": "no user_id"})
+		return
+	}
+
+	var req dto.OrderDeleteRequest
+
+	req.UserId = fmt.Sprint(userID)
+
+	req.OrderId = ctx.Param("id")
+
+	err := o.orderService.DeleteRow(ctx, req)
+	if err != nil {
+		ctx.JSON(500, gin.H{"error": err.Error()})
+		return
+	}
+
+	ctx.Status(200)
 }

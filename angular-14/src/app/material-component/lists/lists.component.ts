@@ -24,12 +24,16 @@ export class ListsComponent {
 
     }
   }
-  testt():void{
+  testt(orderId:string):void{
     const dialogRef = this.dialog.open(OtpiskaComponent);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log("qweqweqw")// Выполните действия при подтверждении регистрации
+        const token = localStorage.getItem("token")
+        if (token){
+          this.back.deleteOrder(token,orderId).subscribe()
+        }// Выполните действия при подтверждении регистрации
+       
       }
   });
 }
