@@ -29,9 +29,9 @@ CREATE TABLE IF NOT EXISTS reviews(
   created_at       timestamp DEFAULT CURRENT_TIMESTAMP
 );
 
-ALTER TABLE "orders" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
-ALTER TABLE "orders" add foreign key ("course_id") references  "courses" ("id");
-ALTER TABLE "reviews" add foreign key ("order_id") references "orders" ("order_id");
+ALTER TABLE "orders" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id") ON DELETE CASCADE;;
+ALTER TABLE "orders" add foreign key ("course_id") references  "courses" ("id") ;
+ALTER TABLE "reviews" add foreign key ("order_id") references "orders" ("order_id") ON DELETE CASCADE;;
 
 CREATE INDEX ON "users" ("id");
 CREATE INDEX ON "courses" ("id");
