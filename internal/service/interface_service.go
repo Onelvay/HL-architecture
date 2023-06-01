@@ -25,5 +25,5 @@ type OrderService interface {
 }
 
 type UserService interface {
-	GetCourses(ctx context.Context, userID string) ([]dto.CourseResponse, error)
+	GetCourses(ctx context.Context, userID string) ([]dto.UserCourseResponse, error)
 }

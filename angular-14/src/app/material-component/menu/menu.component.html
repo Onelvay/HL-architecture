@@ -15,3 +15,7 @@
 			</mat-card>
 		</div>    
 </div>
+<div class="rating">
+	<span *ngFor="let star of getFilledStars(5)" class="star filled"></span>
+	<span *ngFor="let star of getEmptyStars(5)" class="star"></span>
+  </div>

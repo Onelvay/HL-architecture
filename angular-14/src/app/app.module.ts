@@ -26,6 +26,8 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { ConfirmComponent } from './confirm/confirm.component';
 import { ErrorComponent } from './error/error.component';
 import { OtpiskaComponent } from './otpiska/otpiska.component';
+import { SuccessComponent } from './success/success.component';
+import { ReviewDialogComponent } from './review-dialog/review-dialog.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,9 @@ import { OtpiskaComponent } from './otpiska/otpiska.component';
     MainpageComponent,
     ConfirmComponent,
     ErrorComponent,
-    OtpiskaComponent
+    OtpiskaComponent,
+    SuccessComponent,
+    ReviewDialogComponent
   ],
   imports: [
     NgApexchartsModule,

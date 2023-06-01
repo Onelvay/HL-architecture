@@ -37,3 +37,8 @@ export interface Review{
     comment:string
     created_at:string
 }
+export interface PostReview{
+    order_id:string
+    comment:string
+    rating:number
+}

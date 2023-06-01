@@ -21,7 +21,7 @@ func NewUserService(user repository.UserRepository, order repository.UserOrderRe
 	}
 }
 
-func (u *UserService) GetCourses(ctx context.Context, userID string) (res []dto.CourseResponse, err error) {
+func (u *UserService) GetCourses(ctx context.Context, userID string) (res []dto.UserCourseResponse, err error) {
 	orders, err := u.orderRepo.GetManyById(ctx, userID)
 	//временно
 	for _, order := range orders {
@@ -31,7 +31,7 @@ func (u *UserService) GetCourses(ctx context.Context, userID string) (res []dto.
 			logger.Error(err)
 		} else {
 			res = append(res,
-				dto.CourseResponse{
+				dto.UserCourseResponse{
 					ID:          course.ID,
 					Name:        course.Name,
 					Description: course.Description,

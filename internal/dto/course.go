@@ -11,13 +11,22 @@ type CourseRequest struct {
 	ImgURL      string  `json:"imgURL"`
 }
 
-type CourseResponse struct {
-	ID          string `json:"id"`
-	Name        string `json:"name"`
-	Description string `json:"description"`
-	ImgURL      string `json:"imgURL"`
-	OrderId     string `json:"order_id"`
-}
+type (
+	CourseResponse struct {
+		ID          string `json:"id"`
+		Name        string `json:"name"`
+		Description string `json:"description"`
+		ImgURL      string `json:"imgURL"`
+	}
+
+	UserCourseResponse struct {
+		ID          string `json:"id"`
+		Name        string `json:"name"`
+		Description string `json:"description"`
+		ImgURL      string `json:"imgURL"`
+		OrderId     string `json:"order_id"`
+	}
+)
 
 func ParseFromCourse(data entity.Course) (res CourseResponse) {
 	res = CourseResponse{

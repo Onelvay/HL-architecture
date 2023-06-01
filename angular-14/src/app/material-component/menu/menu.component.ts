@@ -5,6 +5,7 @@ import { BackendService } from 'src/app/backend.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmComponent } from 'src/app/confirm/confirm.component';
 import { ErrorComponent } from 'src/app/error/error.component';
+import { SuccessComponent } from 'src/app/success/success.component';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -12,7 +13,9 @@ import { ErrorComponent } from 'src/app/error/error.component';
 })
 export class MenuComponent {
   test:Course[]=[];
-  constructor(private service:BackendService,private dialog: MatDialog,private err:MatDialog){}
+  constructor(private service:BackendService,private dialog: MatDialog,private err:MatDialog){
+
+  }
   ngOnInit(){
     this.service.getCourses().subscribe((val)=>{
       this.test=val
@@ -27,6 +30,8 @@ export class MenuComponent {
           console.log(data.error)
           // alert("вы уже подписаны на этот курс")
           this.error()
+        }else{
+          this.success()
         }
       })
     }
@@ -37,6 +42,7 @@ export class MenuComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.register(courseId)
+        
       }
   });
 }
@@ -44,5 +50,18 @@ error(){
   const dialogRef = this.err.open(ErrorComponent);
 
   dialogRef.afterClosed().subscribe();
+}
+success(){
+  const dialogRef = this.err.open(SuccessComponent);
+
+  dialogRef.afterClosed().subscribe();
+}
+
+getFilledStars(rating: number): number[] {
+  return Array(rating).fill(0);
+}
+
+getEmptyStars(rating: number): number[] {
+  return Array(5 - rating).fill(0);
 }
 }

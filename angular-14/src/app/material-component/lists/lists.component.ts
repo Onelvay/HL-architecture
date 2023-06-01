@@ -6,6 +6,8 @@ import { ConfirmComponent } from 'src/app/confirm/confirm.component';
 import { Course ,Order,CourseWithOrderId} from 'src/app/models';
 import { OtpiskaComponent } from 'src/app/otpiska/otpiska.component';
 import { Location } from '@angular/common';
+import { SuccessComponent } from 'src/app/success/success.component';
+import { ReviewDialogComponent } from 'src/app/review-dialog/review-dialog.component';
 
 @Component({
   selector: 'app-lists',
@@ -34,7 +36,8 @@ export class ListsComponent {
         if (token){
           this.back.deleteOrder(token,orderId).subscribe()
           this.refreshPage()
-        }// Выполните действия при подтверждении регистрации
+          // this.success()
+        }
        
       }
   });
@@ -43,4 +46,20 @@ refreshPage(): void {
   this.location.go(this.location.path());
   window.location.reload();
 }
+success(){
+  const dialogRef = this.dialog.open(SuccessComponent);
+
+  dialogRef.afterClosed().subscribe();
+}
+
+review(orderId:string){
+  this.openReviewDialog()
+  localStorage.setItem('orderId',orderId)
+}
+openReviewDialog(): void {
+  const dialogRef = this.dialog.open(ReviewDialogComponent, {
+    width: '400px', // задайте ширину окна по своему усмотрению
+  });
+}
+
 }

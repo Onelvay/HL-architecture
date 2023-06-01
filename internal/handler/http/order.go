@@ -75,7 +75,7 @@ func (o *OrderHandler) addReview(ctx *gin.Context) {
 		ctx.JSON(400, gin.H{"error": err.Error()})
 		return
 	}
-
+	fmt.Println(req)
 	err := o.orderService.AddReview(ctx, req)
 	if err != nil {
 		logger.Error(err)

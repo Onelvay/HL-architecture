@@ -1,0 +1,13 @@
+.rating {
+    display: inline-block;
+  }
+  .star {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: gold;
+    margin-right: 2px;
+  }
+  .filled {
+    background-color: gold;
+  }
