@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
-import { Course,User,Tokena,Order,OrderResponse,Review } from './models';
+import { Course,User,Tokena,Order,OrderResponse,Review,CourseWithOrderId } from './models';
 import { SassString } from 'sass';
 
 @Injectable({
@@ -29,9 +29,9 @@ export class BackendService {
     )
   }
 
-  getUserCourses(token:string):Observable<Course[]>{
+  getUserCourses(token:string):Observable<CourseWithOrderId[]>{
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.client.get<Course[]>(`${this.BASE_URL}/user/course`,{headers});
+    return this.client.get<CourseWithOrderId[]>(`${this.BASE_URL}/user/course`,{headers});
   }
   getReviews(token:string):Observable<Review[]>{
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);

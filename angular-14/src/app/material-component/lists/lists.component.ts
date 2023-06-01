@@ -3,8 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 import {MatListModule} from '@angular/material/list';
 import { BackendService } from 'src/app/backend.service';
 import { ConfirmComponent } from 'src/app/confirm/confirm.component';
-import { Course ,Order} from 'src/app/models';
+import { Course ,Order,CourseWithOrderId} from 'src/app/models';
 import { OtpiskaComponent } from 'src/app/otpiska/otpiska.component';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-lists',
@@ -12,8 +13,8 @@ import { OtpiskaComponent } from 'src/app/otpiska/otpiska.component';
   styleUrls: ['./lists.component.scss']
 })
 export class ListsComponent {
-  courses:Course[]=[];
-  constructor(private back:BackendService,private dialog: MatDialog){}
+  courses:CourseWithOrderId[]=[];
+  constructor(private back:BackendService,private dialog: MatDialog,private location: Location){}
   ngOnInit(){
     const token  = localStorage.getItem('token')
     console.log(token)
@@ -32,9 +33,14 @@ export class ListsComponent {
         const token = localStorage.getItem("token")
         if (token){
           this.back.deleteOrder(token,orderId).subscribe()
+          this.refreshPage()
         }// Выполните действия при подтверждении регистрации
        
       }
   });
+}
+refreshPage(): void {
+  this.location.go(this.location.path());
+  window.location.reload();
 }
 }

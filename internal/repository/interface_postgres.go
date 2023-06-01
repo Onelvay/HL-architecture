@@ -29,7 +29,6 @@ type UserOrderRepository interface {
 	InsertOne(ctx context.Context, req entity.Order) (err error)
 	AddReview(ctx context.Context, req entity.OrderReview) (err error)
 	DeleteRow(ctx context.Context, orderId string) (err error)
-	DeleteRowByUserId(ctx context.Context, userId, orderId string) (err error)
 }
 
 type UserRepository interface {

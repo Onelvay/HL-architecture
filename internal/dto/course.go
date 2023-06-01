@@ -16,6 +16,7 @@ type CourseResponse struct {
 	Name        string `json:"name"`
 	Description string `json:"description"`
 	ImgURL      string `json:"imgURL"`
+	OrderId     string `json:"order_id"`
 }
 
 func ParseFromCourse(data entity.Course) (res CourseResponse) {

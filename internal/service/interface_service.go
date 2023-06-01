@@ -22,7 +22,6 @@ type OrderService interface {
 	AddReview(ctx context.Context, req dto.OrderReviewRequest) (err error)
 	GetAllReviews(ctx context.Context) (orders []dto.ReviewResponse, err error)
 	DeleteByOrderId(ctx context.Context, req dto.OrderDeleteRequest) error
-	DeleteByUserId(ctx context.Context, req dto.OrderDeleteRequestByUser) error
 }
 
 type UserService interface {

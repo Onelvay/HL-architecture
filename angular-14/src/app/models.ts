@@ -5,6 +5,14 @@ export interface Course{
     description:string,
     imgURL:string,
 }
+
+export interface CourseWithOrderId{
+    id:string,
+    name:string,
+    description:string,
+    imgURL:string,
+    order_id:string,
+}
 export interface User{
     id:string,
     name:string,

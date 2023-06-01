@@ -87,6 +87,7 @@ func (o *OrderHandler) addReview(ctx *gin.Context) {
 }
 func (o *OrderHandler) getAllReviews(ctx *gin.Context) {
 	orders, err := o.orderService.GetAllReviews(ctx)
+
 	if err != nil {
 		ctx.JSON(500, gin.H{"error": err.Error()})
 		return
@@ -95,19 +96,15 @@ func (o *OrderHandler) getAllReviews(ctx *gin.Context) {
 }
 
 func (o *OrderHandler) deleteOrder(ctx *gin.Context) {
-	userID, ok := ctx.Get("x-userId")
-	if !ok {
-		ctx.JSON(400, gin.H{"error": "no user_id"})
+	var req dto.OrderDeleteRequest
+	req.OrderId = ctx.Param("id")
+
+	if req.OrderId == "" {
+		ctx.JSON(400, gin.H{"error": "no order_id"})
 		return
 	}
 
-	var req dto.OrderDeleteRequest
-
-	req.UserId = fmt.Sprint(userID)
-
-	req.OrderId = ctx.Param("id")
-
-	err := o.orderService.DeleteRow(ctx, req)
+	err := o.orderService.DeleteByOrderId(ctx, req)
 	if err != nil {
 		ctx.JSON(500, gin.H{"error": err.Error()})
 		return

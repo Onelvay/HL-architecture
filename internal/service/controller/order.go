@@ -68,7 +68,3 @@ func (o *OrderService) DeleteByOrderId(ctx context.Context, req dto.OrderDeleteR
 	err = o.repo.DeleteRow(ctx, orderId)
 	return
 }
-
-func (o *OrderService) DeleteByUserId(ctx context.Context, req dto.OrderDeleteRequestByUser) error {
-	err = o.repo.DeleteRowByUserId(ctx, req.UserId, req.CourseId)
-}
