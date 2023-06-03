@@ -1,4 +1,4 @@
-package http
+package v1
 
 import (
 	"github.com/Onelvay/HL-architecture/internal/dto"

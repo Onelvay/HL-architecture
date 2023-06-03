@@ -3,7 +3,7 @@ package handler
 import (
 	"context"
 	"github.com/Onelvay/HL-architecture/config"
-	routes "github.com/Onelvay/HL-architecture/internal/handler/http"
+	routes "github.com/Onelvay/HL-architecture/internal/handler/http/v1"
 	"github.com/Onelvay/HL-architecture/internal/service"
 	"github.com/gin-gonic/gin"
 	"github.com/rs/cors"
@@ -13,6 +13,21 @@ import (
 type Server struct {
 	*http.Server
 }
+
+//	@title			Swagger Example API
+//	@version		1.0
+//	@description	This is a sample server celler server.
+//	@termsOfService	http://swagger.io/terms/
+
+//	@contact.name	API Support
+//	@contact.url	http://www.swagger.io/support
+//	@contact.email	support@swagger.io
+
+//	@license.name	Apache 2.0
+//	@license.url	http://www.apache.org/licenses/LICENSE-2.0.html
+
+// @host		localhost
+// @BasePath	/api/v1
 
 func NewServer(cfg config.Config, s service.Service) *Server {
 	router := gin.New()
@@ -35,6 +50,7 @@ func NewServer(cfg config.Config, s service.Service) *Server {
 	//		param.ErrorMessage,
 	//	)
 	//}))
+
 	routes.InitRoutes(router, s)
 
 	caw := cors.New(cors.Options{
