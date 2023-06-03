@@ -19,20 +19,25 @@ func newCourseHandler(productService service.CourseService) *CourseHandler {
 
 func courseRoutes(router *gin.Engine, h *CourseHandler) {
 	group := router.Group("/courses")
-	//group.Use(Middleware)
 
 	{
 		group.GET("", h.getAll)
 
 		group.GET("/:id", h.getById)
+		group.GET("/hello", Helloworld)
 	}
+}
+
+type badResponse struct {
+	Status  int    `json:"-"`
+	Message string `json:"message"`
 }
 
 func (h *CourseHandler) getAll(ctx *gin.Context) {
 	res, err := h.courseService.GetMany(ctx)
 	if err != nil {
 		logger.Error(err)
-		ctx.JSON(500, gin.H{"error": err})
+		ctx.JSON(500, badResponse{500, err.Error()})
 		return
 	}
 
