@@ -3,10 +3,13 @@ package handler
 import (
 	"context"
 	"github.com/Onelvay/HL-architecture/config"
+	_ "github.com/Onelvay/HL-architecture/docs"
 	routes "github.com/Onelvay/HL-architecture/internal/handler/http/v1"
 	"github.com/Onelvay/HL-architecture/internal/service"
 	"github.com/gin-gonic/gin"
 	"github.com/rs/cors"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 	"net/http"
 )
 
@@ -37,22 +40,8 @@ func NewServer(cfg config.Config, s service.Service) *Server {
 	)
 
 	router.MaxMultipartMemory = 8 << 20
-	//router.Use(gin.LoggerWithFormatter(func(param gin.LogFormatterParams) string {
-	//	return fmt.Sprintf("%s - [%s] \"%s %s %s %d %s \"%s\" %s\"\n",
-	//		param.ClientIP,
-	//		param.TimeStamp.Format(time.RFC1123),
-	//		param.Method,
-	//		param.Path,
-	//		param.Request.Proto,
-	//		param.StatusCode,
-	//		param.Latency,
-	//		param.Request.UserAgent(),
-	//		param.ErrorMessage,
-	//	)
-	//}))
-
 	routes.InitRoutes(router, s)
-
+	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	caw := cors.New(cors.Options{
 		AllowedMethods: []string{"GET", "POST", "PUT", "DELETE"},
 		AllowedHeaders: []string{"Content-Type", "Authorization"},

@@ -46,7 +46,7 @@ export class MainpageComponent implements OnInit {
   constructor(private service:BackendService){
     this.activityData = activities;
     this.VisitorChartOptions = {
-      series: [8, 9, 2, 3],
+      series: [4, 5, 2, 1],
       chart: {
         type: "donut",
         fontFamily: "Poppins,sans-serif",
