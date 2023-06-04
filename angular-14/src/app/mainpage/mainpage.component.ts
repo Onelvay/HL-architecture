@@ -91,18 +91,20 @@ export class MainpageComponent implements OnInit {
       this.test=val
     })
   }
-  register(courseId:string){
-    const token= localStorage.getItem('token')
-    console.log(token)
-    if(token){
-      this.service.addCourse(courseId,token).subscribe((data)=>{
-        if (data.error!=null){
-          console.log(data.error)
-          alert("вы уже подписаны на этот курс")
-        }
-      })
-    }
+
+
+  questions: Question[] = [
+    { text: 'Как зарегистрироваться на курсы?', answer: 'Для регистрации на курсы просто перейдите на страницу регистрации, заполните необходимую информацию и выберите желаемый курс. После успешной регистрации вы получите подтверждение по электронной почте.', showAnswer: false },
+    { text: 'Как выбрать подходящий курс?', answer: ' У нас есть разнообразие курсов по программированию, от начинающих до продвинутых. Вы можете просмотреть подробные описания курсов, их продолжительность, требования и отзывы студентов, чтобы выбрать курс, который лучше всего соответствует вашим потребностям и уровню подготовки.', showAnswer: false },
+    { text: 'Как получить доступ к материалам курса?', answer: ' После успешной оплаты курса вы получите доступ к нашей онлайн-платформе обучения, где вы сможете получить все необходимые материалы курса, включая лекции, задания, дополнительные материалы и возможность общения с преподавателями и другими студентами.', showAnswer: false }
+  ];
+
+  toggleAnswer(question: Question) {
+    question.showAnswer = !question.showAnswer;
   }
-
-
+}
+export interface Question {
+  text: string;
+  answer: string;
+  showAnswer:boolean;
 }

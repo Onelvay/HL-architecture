@@ -22,7 +22,6 @@ export const activities:Activity[]=[
         commentTime:'2023-05-27',
         rating:4,
         comment:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.',
-
     },
     {
         name:'Aruzhan Murzabek',

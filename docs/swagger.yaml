@@ -1,0 +1,62 @@
+basePath: /
+definitions:
+  dto.CourseResponse:
+    properties:
+      description:
+        type: string
+      id:
+        type: string
+      imgURL:
+        type: string
+      name:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: a course service api in golang
+  title: Course Service API
+  version: "1.0"
+paths:
+  /courses:
+    get:
+      description: get all courses
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dto.CourseResponse'
+            type: array
+      summary: Get all courses
+      tags:
+      - courses
+  /courses/{id}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: path param
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.CourseResponse'
+        "400":
+          description: Bad Request
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+      summary: get
+      tags:
+      - courses
+swagger: "2.0"

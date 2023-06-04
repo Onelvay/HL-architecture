@@ -24,7 +24,7 @@ func courseRoutes(router *gin.Engine, h *CourseHandler) {
 		group.GET("", h.getAll)
 
 		group.GET("/:id", h.getById)
-		group.GET("/hello", Helloworld)
+		//group.GET("/hello", Helloworld)
 	}
 }
 
@@ -32,6 +32,14 @@ type badResponse struct {
 	Status  int    `json:"-"`
 	Message string `json:"message"`
 }
+
+// CreateTags godoc
+// @Summary Get all courses
+// @Description get all courses
+// @Produce application/json
+// @Tags courses
+// @Success 200 {array} dto.CourseResponse
+// @Router /courses [get]
 
 func (h *CourseHandler) getAll(ctx *gin.Context) {
 	res, err := h.courseService.GetMany(ctx)
@@ -43,6 +51,16 @@ func (h *CourseHandler) getAll(ctx *gin.Context) {
 
 	ctx.JSON(http.StatusOK, res)
 }
+
+// @Summary get
+// @Tags		courses
+// @Accept		json
+// @Produce		json
+// @Param		id	path		string	true	"path param"
+// @Success	200	{object}	dto.CourseResponse
+// @Failure	500	{object}	error
+// @Failure	400	{object}	error
+// @Router		/courses/{id} [get]
 
 func (h *CourseHandler) getById(ctx *gin.Context) {
 	id := ctx.Param("id")
