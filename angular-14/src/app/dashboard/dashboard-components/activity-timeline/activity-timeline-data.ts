@@ -20,7 +20,7 @@ export const activities:Activity[]=[
         image:'assets/images/users/2.jpg',
         commentTime:'2023-05-27',
         rating:4,
-        comment:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.',
+        comment:'"Прошел курс "Django Framework" и я в полном восторге! Погружение в мир веб-разработки было захватывающим. Преподаватели прекрасно объясняли сложные концепции и помогли освоить фреймворки. Теперь я уверенно создаю современные веб-приложения. Большое спасибо за отличное обучение!"',
 
     },
     {
@@ -28,7 +28,7 @@ export const activities:Activity[]=[
         image:'assets/images/users/3.jpg',
         commentTime:'2023-05-27',
         rating:2,
-        comment:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.',
+        comment:'"Курс "JavaScript с нуля" - отличное начало для новичков в программировании! Я получил крепкую базу знаний о синтаксисе, структурах данных и алгоритмах. Материал был представлен понятно и доступно. Теперь я чувствую уверенность в создании своих первых программ. Спасибо за отличное обучение!"',
     
     },
     {
@@ -36,7 +36,7 @@ export const activities:Activity[]=[
         rating:5,
         image:'assets/images/users/4.jpg',
         commentTime:'2023-05-27',
-        comment:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.',
+        comment:'"Курс "Python для начинающих" - идеальное решение для тех, кто хочет погрузиться в анализ данных. Я изучил мощные инструменты Python, такие как NumPy и Pandas, а также научился визуализировать данные с помощью библиотеки Matplotlib. Этот курс дал мне навыки, необходимые для работы в сфере аналитики данных. Очень рекомендую!"       ',
     
 
     }
