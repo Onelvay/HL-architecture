@@ -3,6 +3,7 @@ package v1
 import (
 	"errors"
 	"fmt"
+
 	"github.com/Onelvay/HL-architecture/internal/service"
 	"github.com/Onelvay/HL-architecture/pkg/logger"
 	"github.com/gin-gonic/gin"
@@ -28,14 +29,13 @@ func userRoutes(router *gin.Engine, user *UserHandler) {
 	}
 }
 
-//	@Summary	List of courses from the store
-//	@Tags		courses
-//	@Accept		json
-//	@Produce	json
-//	@Success	200	{array}		course.Response
-//	@Failure	500	{object}	status.Response
-//	@Router		/course  [get]
-
+// @Summary	List of courses from the store
+// @Tags		courses
+// @Accept		json
+// @Produce	json
+// @Success	200	{array}		dto.UserCourseResponse
+// @Failure	500	{object}	status.Response
+// @Router		/course  [get]
 func (u *UserHandler) getCourses(ctx *gin.Context) {
 	userID, ok := ctx.Get("x-userId")
 

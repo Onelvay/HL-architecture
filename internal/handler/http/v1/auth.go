@@ -28,12 +28,11 @@ func authRoutes(router *gin.Engine, a *authorization) {
 // @Tags		authorization
 // @Accept		json
 // @Produce		json
-//@Param request body 	dto.SignUpRequest true "body param"
+// @Param request body 	dto.SignUpRequest true "body param"
 // @Success	200	{object}	dto.SignUpResponse
 // @Failure	500	{object}	status.Response
 // @Failure	400	{object}	status.Response
 // @Router		/auth/sign-up [post]
-
 func (a *authorization) signUp(c *gin.Context) {
 	var req dto.SignUpRequest
 
@@ -55,12 +54,11 @@ func (a *authorization) signUp(c *gin.Context) {
 // @Tags		authorization
 // @Accept		json
 // @Produce		json
-//@Param request body 	dto.SignInRequest true "body param"
-// @Success	200	{object}	dto.SignIpResponse
+// @Param request body 	dto.SignInRequest true "body param"
+// @Success	200	{object}	dto.SignInResponse
 // @Failure	500	{object}	status.Response
 // @Failure	400	{object}	status.Response
 // @Router		/auth/sign-in [post]
-
 func (a *authorization) signIn(c *gin.Context) {
 	var req dto.SignInRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
