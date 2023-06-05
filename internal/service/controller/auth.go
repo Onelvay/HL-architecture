@@ -2,8 +2,8 @@ package controller
 
 import (
 	"context"
-	"github.com/Onelvay/HL-architecture/internal/dto"
-	"github.com/Onelvay/HL-architecture/internal/entity"
+	"github.com/Onelvay/HL-architecture/internal/domain/auth"
+	"github.com/Onelvay/HL-architecture/internal/domain/user"
 	"github.com/Onelvay/HL-architecture/internal/repository"
 	"github.com/Onelvay/HL-architecture/pkg/hasher"
 	"github.com/dgrijalva/jwt-go/v4"
@@ -25,8 +25,8 @@ func NewAuthService(repo repository.AuthRepository) *AuthService {
 	}
 }
 
-func (a *AuthService) SignIn(ctx context.Context, req dto.SignInRequest) (res dto.SignInResponse, err error) {
-	user := entity.User{
+func (a *AuthService) SignIn(ctx context.Context, req auth.SignInRequest) (res auth.SignInResponse, err error) {
+	user := user.User{
 		Email:    req.Email,
 		Password: req.Password,
 	}
@@ -42,8 +42,8 @@ func (a *AuthService) SignIn(ctx context.Context, req dto.SignInRequest) (res dt
 	return
 }
 
-func (a *AuthService) SignUp(ctx context.Context, req dto.SignUpRequest) (res dto.SignUpResponse, err error) {
-	user := entity.User{
+func (a *AuthService) SignUp(ctx context.Context, req auth.SignUpRequest) (res auth.SignUpResponse, err error) {
+	user := user.User{
 		ID:       uuid.New().String(),
 		Name:     req.Name,
 		Email:    req.Email,
@@ -62,7 +62,7 @@ func (a *AuthService) SignUp(ctx context.Context, req dto.SignUpRequest) (res dt
 }
 
 func generateToken(userId string) (accessToken string, err error) {
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, &dto.Claims{
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, &auth.Claims{
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: jwt.At(time.Now().Add(expireDuration)),
 			IssuedAt:  jwt.At(time.Now()),

@@ -1,6 +1,7 @@
 package app
 
 import (
+	"context"
 	"flag"
 	"fmt"
 	"github.com/Onelvay/HL-architecture/config"
@@ -22,7 +23,7 @@ func Run() {
 
 	logger, err := zap.NewProduction()
 	if err != nil {
-		log.Fatalf("can't initialize zap logger: %v", err)
+		log.Fatalf("can't initialize zap loggerlocal: %v", err)
 	}
 	defer logger.Sync()
 
@@ -33,11 +34,10 @@ func Run() {
 		sugar.Fatalf("failed to init config:  %s", err)
 	}
 
-	repo, db, err := repository.New(repository.PostgresRepository())
+	repo, db, err := repository.New(repository.PostgresRepository()) //defer db.close()
 	if err != nil {
 		sugar.Fatalf("failed to start repo: %s", err)
 	}
-	defer db.Close()
 
 	d := service.Dependencies{
 		CourseRepo: repo.Course,
@@ -48,7 +48,7 @@ func Run() {
 	s := service.New(d)
 
 	if err != nil {
-		sugar.Errorf("failed to init repository %s", err)
+		sugar.Fatalf("failed to init repository %s", err)
 	}
 
 	server := handler.NewServer(cfg, s)
@@ -61,13 +61,24 @@ func Run() {
 	sugar.Infof("listen on port %s", cfg.Http.Port)
 
 	var wait time.Duration
-	flag.DurationVar(&wait, "graceful-timeout", time.Second*15, "the duration for which the server gracefully wait for existing connections to finish - e.g. 15s or 1m")
+	flag.DurationVar(&wait, "graceful-timeout", time.Second*15, "waits for the completion of existing connections")
 	flag.Parse()
 
 	quit := make(chan os.Signal, 1)
 
 	signal.Notify(quit, os.Interrupt, syscall.SIGTERM)
 	<-quit
-	fmt.Println("Server was successful shutdown.")
 
+	ctx, cancel := context.WithTimeout(context.Background(), wait)
+	defer cancel()
+
+	if err = server.Stop(ctx); err != nil {
+		sugar.Fatalf("failed to stop server : %s", err)
+	}
+
+	if err = db.Close(); err != nil {
+		sugar.Fatalf("failed to stop db: %s", err)
+	}
+
+	fmt.Println("Server was successful shutdown")
 }

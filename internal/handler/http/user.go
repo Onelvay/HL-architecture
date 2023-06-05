@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/Onelvay/HL-architecture/internal/service"
-	"github.com/Onelvay/HL-architecture/pkg/logger"
+	"github.com/Onelvay/HL-architecture/pkg/loggerlocal"
 	"github.com/gin-gonic/gin"
 )
 
@@ -39,14 +39,14 @@ func (u *UserHandler) getCourses(ctx *gin.Context) {
 	userID, ok := ctx.Get("x-userId")
 
 	if !ok {
-		logger.Error(errors.New("no user id"))
+		loggerlocal.Error(errors.New("no user id"))
 		ctx.JSON(400, gin.H{"error": "no user_id"})
 		return
 	}
 
 	courses, err := u.userService.GetCourses(ctx, fmt.Sprint(userID))
 	if err != nil {
-		logger.Error(err)
+		loggerlocal.Error(err)
 		ctx.Status(500)
 		return
 	}

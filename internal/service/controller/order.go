@@ -2,10 +2,9 @@ package controller
 
 import (
 	"context"
-	"github.com/Onelvay/HL-architecture/internal/dto"
-	"github.com/Onelvay/HL-architecture/internal/entity"
+	"github.com/Onelvay/HL-architecture/internal/domain/order"
 	"github.com/Onelvay/HL-architecture/internal/repository"
-	"github.com/Onelvay/HL-architecture/pkg/logger"
+	"github.com/Onelvay/HL-architecture/pkg/loggerlocal"
 	"github.com/google/uuid"
 )
 
@@ -19,9 +18,9 @@ func NewOrderService(repo repository.OrderRepository) *OrderService {
 	}
 }
 
-func (o *OrderService) CreateRow(ctx context.Context, req dto.OrderRequest) (res dto.OrderResponse) {
+func (o *OrderService) CreateRow(ctx context.Context, req order.OrderRequest) (res order.OrderResponse) {
 	id := uuid.New().String()
-	order := entity.Order{
+	order := order.Order{
 		ID:       id,
 		UserId:   req.UserId,
 		CourseId: req.CourseId,
@@ -37,14 +36,14 @@ func (o *OrderService) CreateRow(ctx context.Context, req dto.OrderRequest) (res
 
 }
 
-func (o *OrderService) GetMany(ctx context.Context, userId string) (res []entity.Order, err error) {
+func (o *OrderService) GetMany(ctx context.Context, userId string) (res []order.Order, err error) {
 	res, err = o.repo.GetManyById(context.Background(), userId)
 
 	return
 }
 
-func (o *OrderService) AddReview(ctx context.Context, req dto.OrderReviewRequest) (err error) {
-	review := entity.OrderReview{
+func (o *OrderService) AddReview(ctx context.Context, req order.OrderReviewRequest) (err error) {
+	review := order.OrderReview{
 		OrderID: req.OrderId,
 		Comment: req.Comment,
 		Rating:  req.Rating,
@@ -55,15 +54,15 @@ func (o *OrderService) AddReview(ctx context.Context, req dto.OrderReviewRequest
 	return
 }
 
-func (o *OrderService) GetAllReviews(ctx context.Context) (orders []dto.ReviewResponse, err error) {
+func (o *OrderService) GetAllReviews(ctx context.Context) (orders []order.ReviewResponse, err error) {
 	orders, err = o.repo.GetAllReviews(ctx)
 	if err != nil {
-		logger.Error(err)
+		loggerlocal.Error(err)
 	}
 	return
 }
 
-func (o *OrderService) DeleteByOrderId(ctx context.Context, req dto.OrderDeleteRequest) (err error) {
+func (o *OrderService) DeleteByOrderId(ctx context.Context, req order.OrderDeleteRequest) (err error) {
 	orderId := req.OrderId
 	err = o.repo.DeleteRow(ctx, orderId)
 	return

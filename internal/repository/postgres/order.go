@@ -3,8 +3,7 @@ package postgres
 import (
 	"context"
 	"errors"
-	"github.com/Onelvay/HL-architecture/internal/dto"
-	"github.com/Onelvay/HL-architecture/internal/entity"
+	"github.com/Onelvay/HL-architecture/internal/domain/order"
 	"github.com/jmoiron/sqlx"
 )
 
@@ -18,7 +17,7 @@ func NewOrderRepository(db *sqlx.DB) *OrderRepository {
 	}
 }
 
-func (o *OrderRepository) InsertOne(ctx context.Context, req entity.Order) (err error) {
+func (o *OrderRepository) InsertOne(ctx context.Context, req order.Order) (err error) {
 	query := "INSERT INTO orders (order_id, user_id,course_id) VALUES (:id, :user_id,:course_id)"
 
 	if err = o.exist(ctx, req.UserId, req.CourseId); err != nil {
@@ -33,7 +32,7 @@ func (o *OrderRepository) InsertOne(ctx context.Context, req entity.Order) (err 
 	return
 }
 
-func (o *OrderRepository) GetManyById(ctx context.Context, userId string) (orders []entity.Order, err error) {
+func (o *OrderRepository) GetManyById(ctx context.Context, userId string) (orders []order.Order, err error) {
 	query := `SELECT order_id,user_id,course_id from orders where user_id = $1`
 
 	err = o.db.Select(&orders, query, userId)
@@ -58,7 +57,7 @@ func (o *OrderRepository) exist(ctx context.Context, userid, id string) error {
 	return nil
 }
 
-func (o *OrderRepository) AddReview(ctx context.Context, req entity.OrderReview) (err error) {
+func (o *OrderRepository) AddReview(ctx context.Context, req order.OrderReview) (err error) {
 	query := "INSERT INTO reviews (order_id, comment,rating) VALUES (:id, :comment,:rating)"
 
 	_, err = o.db.NamedExec(query, map[string]interface{}{
@@ -70,7 +69,7 @@ func (o *OrderRepository) AddReview(ctx context.Context, req entity.OrderReview)
 	return
 }
 
-func (o *OrderRepository) GetAllReviews(ctx context.Context) (orders []dto.ReviewResponse, err error) {
+func (o *OrderRepository) GetAllReviews(ctx context.Context) (orders []order.ReviewResponse, err error) {
 	query := `select u.email as user_name,c.name as course_name, r.rating,r.comment,r.created_at from orders 
     inner join courses c on orders.course_id = c.id 
     inner join users u on u.id = orders.user_id 

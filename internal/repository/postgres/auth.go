@@ -2,7 +2,7 @@ package postgres
 
 import (
 	"context"
-	"github.com/Onelvay/HL-architecture/internal/entity"
+	"github.com/Onelvay/HL-architecture/internal/domain/user"
 	"github.com/jmoiron/sqlx"
 )
 
@@ -14,7 +14,7 @@ func NewAuthRepository(db *sqlx.DB) *AuthRepository {
 	return &AuthRepository{db: db}
 }
 
-func (a *AuthRepository) SignIn(ctx context.Context, req entity.User) (user entity.User, err error) {
+func (a *AuthRepository) SignIn(ctx context.Context, req user.User) (user user.User, err error) {
 	query := `
 		SELECT id,name,email,password FROM users WHERE email=$1 and password=$2`
 
@@ -25,7 +25,7 @@ func (a *AuthRepository) SignIn(ctx context.Context, req entity.User) (user enti
 	return
 }
 
-func (a *AuthRepository) SignUp(ctx context.Context, req entity.User) (err error) {
+func (a *AuthRepository) SignUp(ctx context.Context, req user.User) (err error) {
 	query := "INSERT INTO users (id,name, email,password) VALUES (:id, :name, :email,:password)"
 
 	_, err = a.db.NamedExec(query, map[string]interface{}{

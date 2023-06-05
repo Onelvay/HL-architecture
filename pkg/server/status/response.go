@@ -1,7 +1,7 @@
 package status
 
 import (
-	"github.com/Onelvay/HL-architecture/pkg/logger"
+	"github.com/Onelvay/HL-architecture/pkg/loggerlocal"
 	"github.com/gin-gonic/gin"
 )
 
@@ -10,6 +10,6 @@ type Response struct {
 }
 
 func NewResponse(c *gin.Context, statusCode int, message string) {
-	logger.Error(message)
+	loggerlocal.Error(message)
 	c.AbortWithStatusJSON(statusCode, Response{message})
 }

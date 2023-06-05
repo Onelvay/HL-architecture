@@ -1,7 +1,7 @@
 package http
 
 import (
-	"github.com/Onelvay/HL-architecture/internal/dto"
+	"github.com/Onelvay/HL-architecture/internal/domain/auth"
 	"github.com/Onelvay/HL-architecture/internal/service"
 	"github.com/Onelvay/HL-architecture/pkg/server/status"
 	"github.com/gin-gonic/gin"
@@ -34,7 +34,7 @@ func authRoutes(router *gin.Engine, a *authorization) {
 // @Failure	400	{object}	status.Response
 // @Router		/auth/sign-up [post]
 func (a *authorization) signUp(c *gin.Context) {
-	var req dto.SignUpRequest
+	var req auth.SignUpRequest
 
 	if err := c.ShouldBindJSON(&req); err != nil {
 		status.NewResponse(c, 400, err.Error())
@@ -60,7 +60,7 @@ func (a *authorization) signUp(c *gin.Context) {
 // @Failure	400	{object}	status.Response
 // @Router		/auth/sign-in [post]
 func (a *authorization) signIn(c *gin.Context) {
-	var req dto.SignInRequest
+	var req auth.SignInRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
 		status.NewResponse(c, 400, err.Error())
 		return

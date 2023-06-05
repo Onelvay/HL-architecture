@@ -18,20 +18,20 @@ type Server struct {
 }
 
 func NewServer(cfg config.Config, s service.Service) *Server {
-	router := gin.Default()
+	router := gin.New()
+	router.Use(gin.Recovery(),
+		gin.Logger(),
+	)
+	router.MaxMultipartMemory = 8 << 20
+
 	router.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
-	//router.Use(gin.Recovery(),
-	//	gin.Logger(),
-	//)
-
-	//router.MaxMultipartMemory = 8 << 20
 	routes.InitRoutes(router, s)
 
 	caw := cors.New(cors.Options{
 		AllowedMethods: []string{"GET", "POST", "PUT", "DELETE"},
 		AllowedHeaders: []string{"Content-Type", "Authorization"},
-		AllowedOrigins: []string{"http://localhost:4200"},
+		AllowedOrigins: []string{"http://localhost:4200"}, //for angular
 	}).Handler(router)
 
 	return &Server{

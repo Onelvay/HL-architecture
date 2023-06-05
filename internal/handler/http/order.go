@@ -2,9 +2,9 @@ package http
 
 import (
 	"fmt"
-	"github.com/Onelvay/HL-architecture/internal/dto"
+	"github.com/Onelvay/HL-architecture/internal/domain/order"
 	"github.com/Onelvay/HL-architecture/internal/service"
-	"github.com/Onelvay/HL-architecture/pkg/logger"
+	"github.com/Onelvay/HL-architecture/pkg/loggerlocal"
 	"github.com/Onelvay/HL-architecture/pkg/server/status"
 	"github.com/gin-gonic/gin"
 )
@@ -43,7 +43,7 @@ func orderRoutes(router *gin.Engine, order *OrderHandler) {
 // @Failure	400	{object}	status.Response
 // @Router		/order [post]
 func (o *OrderHandler) create(ctx *gin.Context) {
-	var req dto.OrderRequest
+	var req order.OrderRequest
 
 	userID, err := ctx.Get("x-userId")
 	if !err {
@@ -60,7 +60,7 @@ func (o *OrderHandler) create(ctx *gin.Context) {
 
 	res := o.orderService.CreateRow(ctx, req)
 	if res.Error != nil {
-		logger.Error(res.Error)
+		loggerlocal.Error(res.Error)
 	}
 	ctx.JSON(int(res.Status), res)
 }
@@ -101,7 +101,7 @@ func (o *OrderHandler) get(ctx *gin.Context) {
 // @Failure	401	{object}	status.Response
 // @Router		/order/review [post]
 func (o *OrderHandler) addReview(ctx *gin.Context) {
-	var req dto.OrderReviewRequest
+	var req order.OrderReviewRequest
 	if err := ctx.ShouldBindJSON(&req); err != nil {
 		status.NewResponse(ctx, 400, err.Error())
 		return
@@ -146,7 +146,7 @@ func (o *OrderHandler) getAllReviews(ctx *gin.Context) {
 // @Failure	401	{object}	status.Response
 // @Router		/order/review [delete]
 func (o *OrderHandler) deleteOrder(ctx *gin.Context) {
-	var req dto.OrderDeleteRequest
+	var req order.OrderDeleteRequest
 	req.OrderId = ctx.Param("id")
 
 	if req.OrderId == "" {
