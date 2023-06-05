@@ -3,16 +3,17 @@ package app
 import (
 	"flag"
 	"fmt"
-	"github.com/Onelvay/HL-architecture/config"
-	"github.com/Onelvay/HL-architecture/internal/handler"
-	"github.com/Onelvay/HL-architecture/internal/repository"
-	"github.com/Onelvay/HL-architecture/internal/service"
-	"go.uber.org/zap"
 	"log"
 	"os"
 	"os/signal"
 	"syscall"
 	"time"
+
+	"github.com/Onelvay/HL-architecture/config"
+	"github.com/Onelvay/HL-architecture/internal/handler"
+	"github.com/Onelvay/HL-architecture/internal/repository"
+	"github.com/Onelvay/HL-architecture/internal/service"
+	"go.uber.org/zap"
 )
 
 func Run() {
@@ -30,10 +31,13 @@ func Run() {
 
 	cfg, err := config.New()
 	if err != nil {
-		sugar.Errorf("failed to init config:  %s", err)
+		sugar.Fatalf("failed to init config:  %s", err)
 	}
 
 	repo, db, err := repository.New(repository.PostgresRepository())
+	if err != nil {
+		sugar.Fatalf("failed to start reoi: %s", err)
+	}
 	defer db.Close()
 
 	d := service.Dependencies{
