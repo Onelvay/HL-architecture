@@ -1,4 +1,4 @@
-package v1
+package http
 
 import (
 	"github.com/Onelvay/HL-architecture/internal/service"
@@ -35,7 +35,6 @@ func courseRoutes(router *gin.Engine, h *CourseHandler) {
 // @Success 200 {array} dto.CourseResponse
 // @Failure 500 {object} status.Response
 // @Router /courses [get]
-
 func (h *CourseHandler) getAll(ctx *gin.Context) {
 	res, err := h.courseService.GetMany(ctx)
 	if err != nil {
@@ -55,7 +54,6 @@ func (h *CourseHandler) getAll(ctx *gin.Context) {
 // @Failure	500	{object}	status.Response
 // @Failure	400	{object}	status.Response
 // @Router		/courses/{id} [get]
-
 func (h *CourseHandler) getById(ctx *gin.Context) {
 	id := ctx.Param("id")
 	res, err := h.courseService.GetRowById(ctx, id)

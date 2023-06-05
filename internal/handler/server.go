@@ -4,7 +4,7 @@ import (
 	"context"
 	"github.com/Onelvay/HL-architecture/config"
 	_ "github.com/Onelvay/HL-architecture/docs"
-	routes "github.com/Onelvay/HL-architecture/internal/handler/http/v1"
+	routes "github.com/Onelvay/HL-architecture/internal/handler/http"
 	"github.com/Onelvay/HL-architecture/internal/service"
 	"github.com/gin-gonic/gin"
 	"github.com/rs/cors"

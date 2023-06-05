@@ -30,10 +30,13 @@ func Run() {
 
 	cfg, err := config.New()
 	if err != nil {
-		sugar.Errorf("failed to init config:  %s", err)
+		sugar.Fatalf("failed to init config:  %s", err)
 	}
 
 	repo, db, err := repository.New(repository.PostgresRepository())
+	if err != nil {
+		sugar.Fatalf("failed to start repo: %s", err)
+	}
 	defer db.Close()
 
 	d := service.Dependencies{

@@ -1,4 +1,4 @@
-package v1
+package http
 
 import (
 	"errors"
@@ -28,14 +28,13 @@ func userRoutes(router *gin.Engine, user *UserHandler) {
 	}
 }
 
-//	@Summary	List of courses from the store
-//	@Tags		courses
-//	@Accept		json
-//	@Produce	json
-//	@Success	200	{array}		course.Response
-//	@Failure	500	{object}	status.Response
-//	@Router		/course  [get]
-
+// @Summary	List of courses from the store
+// @Tags		courses
+// @Accept		json
+// @Produce	json
+// @Success	200	{array}		course.Response
+// @Failure	500	{object}	status.Response
+// @Router		/course  [get]
 func (u *UserHandler) getCourses(ctx *gin.Context) {
 	userID, ok := ctx.Get("x-userId")
 

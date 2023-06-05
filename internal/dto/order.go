@@ -31,6 +31,7 @@ type (
 		UserId  string
 		OrderId string `json:"order_id"`
 	}
+
 	OrderDeleteRequestByUser struct {
 		UserId   string
 		CourseId string
