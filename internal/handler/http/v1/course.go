@@ -2,7 +2,7 @@ package v1
 
 import (
 	"github.com/Onelvay/HL-architecture/internal/service"
-	"github.com/Onelvay/HL-architecture/pkg/logger"
+	"github.com/Onelvay/HL-architecture/pkg/server/status"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -24,13 +24,7 @@ func courseRoutes(router *gin.Engine, h *CourseHandler) {
 		group.GET("", h.getAll)
 
 		group.GET("/:id", h.getById)
-		//group.GET("/hello", Helloworld)
 	}
-}
-
-type badResponse struct {
-	Status  int    `json:"-"`
-	Message string `json:"message"`
 }
 
 // CreateTags godoc
@@ -39,13 +33,13 @@ type badResponse struct {
 // @Produce application/json
 // @Tags courses
 // @Success 200 {array} dto.CourseResponse
+// @Failure 500 {object} status.Response
 // @Router /courses [get]
 
 func (h *CourseHandler) getAll(ctx *gin.Context) {
 	res, err := h.courseService.GetMany(ctx)
 	if err != nil {
-		logger.Error(err)
-		ctx.JSON(500, badResponse{500, err.Error()})
+		status.NewResponse(ctx, 500, err.Error())
 		return
 	}
 
@@ -58,8 +52,8 @@ func (h *CourseHandler) getAll(ctx *gin.Context) {
 // @Produce		json
 // @Param		id	path		string	true	"path param"
 // @Success	200	{object}	dto.CourseResponse
-// @Failure	500	{object}	error
-// @Failure	400	{object}	error
+// @Failure	500	{object}	status.Response
+// @Failure	400	{object}	status.Response
 // @Router		/courses/{id} [get]
 
 func (h *CourseHandler) getById(ctx *gin.Context) {
@@ -67,11 +61,10 @@ func (h *CourseHandler) getById(ctx *gin.Context) {
 	res, err := h.courseService.GetRowById(ctx, id)
 
 	if err != nil {
-		logger.Error(err)
 		if err.Error() == "sql: no rows in result set" {
-			ctx.AbortWithError(http.StatusNotFound, err)
+			status.NewResponse(ctx, 404, err.Error())
 		} else {
-			ctx.AbortWithError(http.StatusInternalServerError, err)
+			status.NewResponse(ctx, 500, err.Error())
 		}
 		return
 	}
