@@ -6,7 +6,7 @@ import (
 )
 
 func New() (*sqlx.DB, error) {
-	db, err := sqlx.Connect("postgres", "postgres://abay:s60VgoNFJN351yzxJueod9ctqiVHaQ0p@dpg-ci026nu4dad35tqp0ec0-a/aray")
+	db, err := sqlx.Connect("postgres", "postgres://abay:8g2ct20M3j602Kgel5BL8BRbFRUwIbqC@dpg-ci02ko33cv20nhr4f44g-a/aray_29yf")
 	if err != nil {
 		return db, err
 	}
