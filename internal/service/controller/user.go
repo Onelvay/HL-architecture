@@ -2,7 +2,7 @@ package controller
 
 import (
 	"context"
-	"github.com/Onelvay/HL-architecture/internal/domain/course"
+	courseD "github.com/Onelvay/HL-architecture/internal/domain/course"
 	"github.com/Onelvay/HL-architecture/internal/repository"
 	"github.com/Onelvay/HL-architecture/pkg/loggerlocal"
 )
@@ -21,7 +21,7 @@ func NewUserService(user repository.UserRepository, order repository.UserOrderRe
 	}
 }
 
-func (u *UserService) GetCourses(ctx context.Context, userID string) (res []course.UserCourseResponse, err error) {
+func (u *UserService) GetCourses(ctx context.Context, userID string) (res []courseD.UserCourseResponse, err error) {
 	orders, err := u.orderRepo.GetManyById(ctx, userID)
 	//временно
 	for _, order := range orders {
@@ -31,7 +31,7 @@ func (u *UserService) GetCourses(ctx context.Context, userID string) (res []cour
 			loggerlocal.Error(err)
 		} else {
 			res = append(res,
-				course.UserCourseResponse{
+				courseD.UserCourseResponse{
 					ID:          course.ID,
 					Name:        course.Name,
 					Description: course.Description,
