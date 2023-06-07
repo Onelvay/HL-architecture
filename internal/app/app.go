@@ -23,7 +23,7 @@ func Run() {
 
 	logger, err := zap.NewProduction()
 	if err != nil {
-		log.Fatalf("can't initialize zap loggerlocal: %v", err)
+		log.Fatalf("can't initialize zap logger: %v", err)
 	}
 	defer logger.Sync()
 
